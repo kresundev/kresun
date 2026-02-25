@@ -9,7 +9,7 @@ part 'main_initializer.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //await _mainInitializer();
+  await _mainInitializer();
 
   runApp(const ProviderScope(child: KresunApp()));
 }

@@ -13,6 +13,11 @@ class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this._dataSource);
 
   @override
+  Future<UserModel> getCurrentUser(String userId) async {
+    return _dataSource.getCurrentUser(userId);
+  }
+
+  @override
   Future<UserModel> login({
     required String email,
     required String password,

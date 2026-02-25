@@ -7,6 +7,16 @@ class SupabaseAuthDataSource {
 
   const SupabaseAuthDataSource(this._client);
 
+  Future<UserModel> getCurrentUser(String userId) async {
+    final userData = await _client
+        .from('users')
+        .select('*, region:regions!region_id(*), area:areas!area_id(*)')
+        .eq('id', userId)
+        .single();
+
+    return UserModel.fromJson(userData);
+  }
+
   Future<UserModel> login({
     required String email,
     required String password,

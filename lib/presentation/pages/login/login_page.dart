@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../widgets/app_logo.dart';
 import 'login_page_state.dart';
 import 'login_page_view_model.dart';
 
@@ -43,7 +44,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 64),
-              _Logo(),
+              const AppLogo(),
               const SizedBox(height: 36),
               const Text(
                 'Selamat Datang',
@@ -98,41 +99,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 }
 
-class _Logo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 100,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF9B9EF7), AppColors.primary],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(26),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withValues(alpha:0.35),
-            blurRadius: 24,
-            offset: const Offset(0, 10),
-          ),
-        ],
-      ),
-      child: const Center(
-        child: Text(
-          'KRESUN',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w800,
-            fontSize: 15,
-            letterSpacing: 1.2,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class _EmailField extends StatelessWidget {
   const _EmailField({

@@ -6,7 +6,8 @@ Future<void> _mainInitializer() async {
 
 Future<void> _setupSupabase() async {
   await Supabase.initialize(
-    url: const String.fromEnvironment('SUPABASE_URL'),
-    anonKey: const String.fromEnvironment('SUPABASE_ANON_KEY'),
+    url: 'https://qcrnlujhxrqingnpiubp.supabase.co',
+
+    anonKey: 'sb_publishable_tWfS2YJ1419yiZCN5sOcTw_leSKsNnt',
   );
 }

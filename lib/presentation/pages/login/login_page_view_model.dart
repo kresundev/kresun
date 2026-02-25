@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../data/repositories/auth_repository_impl.dart';
+import '../../providers/current_user_provider.dart';
 import 'login_page_state.dart';
 
 part 'login_page_view_model.g.dart';
@@ -31,6 +32,7 @@ class LoginPageViewModel extends _$LoginPageViewModel {
             email: state.email,
             password: state.password,
           );
+      ref.read(currentUserProvider.notifier).setUser(user);
       state = state.copyWith(status: LoginStatus.success, user: user);
     } catch (e) {
       state = state.copyWith(

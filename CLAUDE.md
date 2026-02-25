@@ -8,8 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 # Get dependencies
 flutter pub get
 
-# Run the app (Supabase credentials required)
-flutter run --dart-define=SUPABASE_URL=<url> --dart-define=SUPABASE_ANON_KEY=<key>
+# Run the app — copy env.json.example → env.json and fill in credentials
+flutter run --dart-define-from-file=env.json
 
 # Analyze
 flutter analyze
