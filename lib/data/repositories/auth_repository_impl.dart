@@ -13,6 +13,9 @@ class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this._dataSource);
 
   @override
+  String? getSessionUserId() => _dataSource.getSessionUserId();
+
+  @override
   Future<UserModel> getCurrentUser(String userId) async {
     return _dataSource.getCurrentUser(userId);
   }

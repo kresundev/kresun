@@ -7,6 +7,8 @@ class SupabaseAuthDataSource {
 
   const SupabaseAuthDataSource(this._client);
 
+  String? getSessionUserId() => _client.auth.currentSession?.user.id;
+
   Future<UserModel> getCurrentUser(String userId) async {
     final userData = await _client
         .from('users')

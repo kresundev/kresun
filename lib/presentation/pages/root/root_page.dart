@@ -11,14 +11,14 @@ class RootPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(rootPageViewModelProvider, (_, next) {
-      switch (next.status) {
-        case RootStatus.authenticated:
-          context.go('/home');
-        case RootStatus.unauthenticated:
-          context.go('/login');
-        case RootStatus.checking:
-          break;
-      }
+      next.whenData((state) {
+        switch (state.status) {
+          case RootStatus.authenticated:
+            context.go('/home');
+          case RootStatus.unauthenticated:
+            context.go('/login');
+        }
+      });
     });
 
     return const Scaffold(

@@ -9,12 +9,12 @@ part of 'area_model.dart';
 _AreaModel _$AreaModelFromJson(Map<String, dynamic> json) => _AreaModel(
   id: json['id'] as String,
   name: json['name'] as String,
-  regionId: json['regionId'] as String,
+  regionId: json['region_id'] as String,
 );
 
 Map<String, dynamic> _$AreaModelToJson(_AreaModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'regionId': instance.regionId,
+      'region_id': instance.regionId,
     };

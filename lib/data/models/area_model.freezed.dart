@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AreaModel {
 
- String get id; String get name; String get regionId;
+ String get id; String get name;@JsonKey(name: 'region_id') String get regionId;
 /// Create a copy of AreaModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AreaModelCopyWith<$Res>  {
   factory $AreaModelCopyWith(AreaModel value, $Res Function(AreaModel) _then) = _$AreaModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String regionId
+ String id, String name,@JsonKey(name: 'region_id') String regionId
 });
 
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name,  String regionId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(name: 'region_id')  String regionId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AreaModel() when $default != null:
 return $default(_that.id,_that.name,_that.regionId);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.name,_that.regionId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name,  String regionId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(name: 'region_id')  String regionId)  $default,) {final _that = this;
 switch (_that) {
 case _AreaModel():
 return $default(_that.id,_that.name,_that.regionId);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.name,_that.regionId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name,  String regionId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(name: 'region_id')  String regionId)?  $default,) {final _that = this;
 switch (_that) {
 case _AreaModel() when $default != null:
 return $default(_that.id,_that.name,_that.regionId);case _:
@@ -211,12 +211,12 @@ return $default(_that.id,_that.name,_that.regionId);case _:
 @JsonSerializable()
 
 class _AreaModel implements AreaModel {
-  const _AreaModel({required this.id, required this.name, required this.regionId});
+  const _AreaModel({required this.id, required this.name, @JsonKey(name: 'region_id') required this.regionId});
   factory _AreaModel.fromJson(Map<String, dynamic> json) => _$AreaModelFromJson(json);
 
 @override final  String id;
 @override final  String name;
-@override final  String regionId;
+@override@JsonKey(name: 'region_id') final  String regionId;
 
 /// Create a copy of AreaModel
 /// with the given fields replaced by the non-null parameter values.
@@ -251,7 +251,7 @@ abstract mixin class _$AreaModelCopyWith<$Res> implements $AreaModelCopyWith<$Re
   factory _$AreaModelCopyWith(_AreaModel value, $Res Function(_AreaModel) _then) = __$AreaModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String regionId
+ String id, String name,@JsonKey(name: 'region_id') String regionId
 });
 
 

@@ -1,26 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'root_page_view_model.dart';
+part of 'register_repository_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$rootPageViewModelHash() => r'c22c5b6c22e587e252aafe0724dfeb035fefed05';
+String _$registerRepositoryHash() =>
+    r'45547663ebddd5dd1f4cf1a819e662de0ce7d9e1';
 
-/// See also [RootPageViewModel].
-@ProviderFor(RootPageViewModel)
-final rootPageViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<RootPageViewModel, RootPageState>.internal(
-      RootPageViewModel.new,
-      name: r'rootPageViewModelProvider',
+/// See also [registerRepository].
+@ProviderFor(registerRepository)
+final registerRepositoryProvider =
+    AutoDisposeProvider<RegisterRepository>.internal(
+      registerRepository,
+      name: r'registerRepositoryProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$rootPageViewModelHash,
+          : _$registerRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$RootPageViewModel = AutoDisposeAsyncNotifier<RootPageState>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef RegisterRepositoryRef = AutoDisposeProviderRef<RegisterRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -206,10 +206,10 @@ return $default(_that.status);case _:
 
 
 class _RootPageState implements RootPageState {
-  const _RootPageState({this.status = RootStatus.checking});
+  const _RootPageState({required this.status});
   
 
-@override@JsonKey() final  RootStatus status;
+@override final  RootStatus status;
 
 /// Create a copy of RootPageState
 /// with the given fields replaced by the non-null parameter values.

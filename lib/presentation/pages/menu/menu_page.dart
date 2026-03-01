@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/models/user_role.dart';
 import '../../providers/current_user_provider.dart';
@@ -39,7 +40,7 @@ class MenuPage extends ConsumerWidget {
                         iconColor: const Color(0xFF10B981),
                         iconBg: const Color(0xFFD1FAE5),
                         title: 'Register Referral/Sales',
-                        onTap: () {},
+                        onTap: () => context.push('/register-referral'),
                       ),
                   ],
                 ),

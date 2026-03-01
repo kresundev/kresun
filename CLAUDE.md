@@ -74,8 +74,10 @@ MVVM + Clean Architecture with three layers:
 ### Riverpod
 - Use `@riverpod` annotation everywhere; never declare providers manually
 - ViewModels extend `_$ClassName` from `riverpod_annotation` as a `Notifier`
+- If a ViewModel needs async work on initialization, extend `AsyncNotifier` and make `build()` return `Future<State>` — Riverpod handles cancellation automatically; never use a manual `_mounted` flag
 - Use `Ref` (from `flutter_riverpod`) not the deprecated generated `XxxRef` aliases
 - Page-level providers live inside the feature's page folder alongside the page
+- **Never access `Supabase.instance` or any framework singleton directly inside a ViewModel** — always go through a repository provider
 
 ### Page State
 - Use Freezed for page state with a private constructor `const ClassName._()` to allow custom getters
