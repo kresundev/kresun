@@ -1,0 +1,31 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'master_customers_list_view_model.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$masterCustomersListViewModelHash() =>
+    r'80e93f0d56e0f720f408ed29fd788b8463f42d96';
+
+/// See also [MasterCustomersListViewModel].
+@ProviderFor(MasterCustomersListViewModel)
+final masterCustomersListViewModelProvider =
+    AutoDisposeAsyncNotifierProvider<
+      MasterCustomersListViewModel,
+      MasterCustomersListState
+    >.internal(
+      MasterCustomersListViewModel.new,
+      name: r'masterCustomersListViewModelProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$masterCustomersListViewModelHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
+
+typedef _$MasterCustomersListViewModel =
+    AutoDisposeAsyncNotifier<MasterCustomersListState>;
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
