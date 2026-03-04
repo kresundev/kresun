@@ -7,7 +7,7 @@ part of 'register_repository_impl.dart';
 // **************************************************************************
 
 String _$registerRepositoryHash() =>
-    r'45547663ebddd5dd1f4cf1a819e662de0ce7d9e1';
+    r'2673a9854bd334b59ab6ab0be8f4f3f6dc1cec11';
 
 /// See also [registerRepository].
 @ProviderFor(registerRepository)

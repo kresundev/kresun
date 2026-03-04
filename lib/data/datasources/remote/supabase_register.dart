@@ -16,11 +16,15 @@ class SupabaseRegisterDataSource {
   }) async {
     await _client.auth.refreshSession();
     final token = _client.auth.currentSession?.accessToken;
-    if (token == null) throw const ServerException('Sesi telah berakhir, silakan login kembali');
+    if (token == null)
+      throw const ServerException('Sesi telah berakhir, silakan login kembali');
 
     final response = await _client.functions.invoke(
       'create-user',
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
       body: {
         'email': email,
         'password': password,

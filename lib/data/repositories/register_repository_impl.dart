@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../datasources/remote/supabase_register.dart';
+import '../datasources/remote/supabase_register_manual.dart';
 import '../../domain/repositories/register_repository.dart';
 
 part 'register_repository_impl.g.dart';
 
 class RegisterRepositoryImpl implements RegisterRepository {
-  final SupabaseRegisterDataSource _dataSource;
+  final SupabaseRegisterManualDataSource _dataSource;
 
   const RegisterRepositoryImpl(this._dataSource);
 
@@ -33,6 +33,6 @@ class RegisterRepositoryImpl implements RegisterRepository {
 @riverpod
 RegisterRepository registerRepository(Ref ref) {
   return RegisterRepositoryImpl(
-    SupabaseRegisterDataSource(Supabase.instance.client),
+    SupabaseRegisterManualDataSource(Supabase.instance.client),
   );
 }

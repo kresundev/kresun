@@ -84,6 +84,7 @@ MVVM + Clean Architecture with three layers:
 - Track dirty fields (e.g. `isEmailDirty`) to gate validation error visibility
 - Expose computed getters for validation (`isFormValid`, `emailError`, `passwordError`, etc.) directly on the state class
 - Use a `LoginStatus`-style enum (initial / loading / success / failure) for async operation state
+- When a page only needs to react to a single async result (e.g. session check on startup), prefer `AsyncNotifier<State>` over a sync `Notifier` with a status enum — the loading state is `AsyncValue.loading()`, no `checking` variant needed in the enum
 
 ### UI
 - Validation errors appear below the field via a shared `_FieldError` widget with `AnimatedSize`
