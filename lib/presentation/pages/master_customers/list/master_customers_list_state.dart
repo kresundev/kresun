@@ -8,5 +8,9 @@ abstract class MasterCustomersListState with _$MasterCustomersListState {
   const factory MasterCustomersListState({
     @Default([]) List<MasterCustomerModel> customers,
     @Default('') String query,
+    @Default(0) int page,
+    @Default(true) bool hasMore,
+    @Default(false) bool isSearching,
+    @Default(false) bool isLoadingMore,
   }) = _MasterCustomersListState;
 }

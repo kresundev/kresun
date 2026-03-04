@@ -6,12 +6,23 @@ class SupabaseMasterCustomerDataSource {
 
   const SupabaseMasterCustomerDataSource(this._client);
 
-  Future<List<MasterCustomerModel>> getCustomers() async {
-    final data = await _client
-        .from('master_customers')
-        .select('*')
-        .order('name');
+  Future<List<MasterCustomerModel>> getCustomers({
+    required int page,
+    required int pageSize,
+    String? query,
+  }) async {
+    final from = page * pageSize;
+    final to = from + pageSize - 1;
 
-    return (data as List).map((e) => MasterCustomerModel.fromJson(e)).toList();
+    var builder = _client
+        .from('master_customers')
+        .select('id, name, phone_number, master_customer_status');
+
+    if (query != null && query.isNotEmpty) {
+      builder = builder.ilike('name', '%$query%');
+    }
+
+    final data = await builder.order('name').range(from, to);
+    return data.map((e) => MasterCustomerModel.fromJson(e)).toList();
   }
 }

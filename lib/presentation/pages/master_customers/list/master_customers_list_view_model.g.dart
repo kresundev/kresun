@@ -7,7 +7,7 @@ part of 'master_customers_list_view_model.dart';
 // **************************************************************************
 
 String _$masterCustomersListViewModelHash() =>
-    r'80e93f0d56e0f720f408ed29fd788b8463f42d96';
+    r'aa99d0bc8a2b8cf1757f3affa53ad082594fbfc5';
 
 /// See also [MasterCustomersListViewModel].
 @ProviderFor(MasterCustomersListViewModel)

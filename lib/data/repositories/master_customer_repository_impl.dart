@@ -13,8 +13,12 @@ class MasterCustomerRepositoryImpl implements MasterCustomerRepository {
   const MasterCustomerRepositoryImpl(this._dataSource);
 
   @override
-  Future<List<MasterCustomerModel>> getCustomers() =>
-      _dataSource.getCustomers();
+  Future<List<MasterCustomerModel>> getCustomers({
+    required int page,
+    required int pageSize,
+    String? query,
+  }) =>
+      _dataSource.getCustomers(page: page, pageSize: pageSize, query: query);
 }
 
 @riverpod

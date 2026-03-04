@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MasterCustomersListState {
 
- List<MasterCustomerModel> get customers; String get query;
+ List<MasterCustomerModel> get customers; String get query; int get page; bool get hasMore; bool get isSearching; bool get isLoadingMore;
 /// Create a copy of MasterCustomersListState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MasterCustomersListStateCopyWith<MasterCustomersListState> get copyWith => _$Ma
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MasterCustomersListState&&const DeepCollectionEquality().equals(other.customers, customers)&&(identical(other.query, query) || other.query == query));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MasterCustomersListState&&const DeepCollectionEquality().equals(other.customers, customers)&&(identical(other.query, query) || other.query == query)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(customers),query);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(customers),query,page,hasMore,isSearching,isLoadingMore);
 
 @override
 String toString() {
-  return 'MasterCustomersListState(customers: $customers, query: $query)';
+  return 'MasterCustomersListState(customers: $customers, query: $query, page: $page, hasMore: $hasMore, isSearching: $isSearching, isLoadingMore: $isLoadingMore)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MasterCustomersListStateCopyWith<$Res>  {
   factory $MasterCustomersListStateCopyWith(MasterCustomersListState value, $Res Function(MasterCustomersListState) _then) = _$MasterCustomersListStateCopyWithImpl;
 @useResult
 $Res call({
- List<MasterCustomerModel> customers, String query
+ List<MasterCustomerModel> customers, String query, int page, bool hasMore, bool isSearching, bool isLoadingMore
 });
 
 
@@ -62,11 +62,15 @@ class _$MasterCustomersListStateCopyWithImpl<$Res>
 
 /// Create a copy of MasterCustomersListState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? customers = null,Object? query = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? customers = null,Object? query = null,Object? page = null,Object? hasMore = null,Object? isSearching = null,Object? isLoadingMore = null,}) {
   return _then(_self.copyWith(
 customers: null == customers ? _self.customers : customers // ignore: cast_nullable_to_non_nullable
 as List<MasterCustomerModel>,query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
-as String,
+as String,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isSearching: null == isSearching ? _self.isSearching : isSearching // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -151,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<MasterCustomerModel> customers,  String query)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<MasterCustomerModel> customers,  String query,  int page,  bool hasMore,  bool isSearching,  bool isLoadingMore)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MasterCustomersListState() when $default != null:
-return $default(_that.customers,_that.query);case _:
+return $default(_that.customers,_that.query,_that.page,_that.hasMore,_that.isSearching,_that.isLoadingMore);case _:
   return orElse();
 
 }
@@ -172,10 +176,10 @@ return $default(_that.customers,_that.query);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<MasterCustomerModel> customers,  String query)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<MasterCustomerModel> customers,  String query,  int page,  bool hasMore,  bool isSearching,  bool isLoadingMore)  $default,) {final _that = this;
 switch (_that) {
 case _MasterCustomersListState():
-return $default(_that.customers,_that.query);case _:
+return $default(_that.customers,_that.query,_that.page,_that.hasMore,_that.isSearching,_that.isLoadingMore);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +196,10 @@ return $default(_that.customers,_that.query);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<MasterCustomerModel> customers,  String query)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<MasterCustomerModel> customers,  String query,  int page,  bool hasMore,  bool isSearching,  bool isLoadingMore)?  $default,) {final _that = this;
 switch (_that) {
 case _MasterCustomersListState() when $default != null:
-return $default(_that.customers,_that.query);case _:
+return $default(_that.customers,_that.query,_that.page,_that.hasMore,_that.isSearching,_that.isLoadingMore);case _:
   return null;
 
 }
@@ -207,7 +211,7 @@ return $default(_that.customers,_that.query);case _:
 
 
 class _MasterCustomersListState implements MasterCustomersListState {
-  const _MasterCustomersListState({final  List<MasterCustomerModel> customers = const [], this.query = ''}): _customers = customers;
+  const _MasterCustomersListState({final  List<MasterCustomerModel> customers = const [], this.query = '', this.page = 0, this.hasMore = true, this.isSearching = false, this.isLoadingMore = false}): _customers = customers;
   
 
  final  List<MasterCustomerModel> _customers;
@@ -218,6 +222,10 @@ class _MasterCustomersListState implements MasterCustomersListState {
 }
 
 @override@JsonKey() final  String query;
+@override@JsonKey() final  int page;
+@override@JsonKey() final  bool hasMore;
+@override@JsonKey() final  bool isSearching;
+@override@JsonKey() final  bool isLoadingMore;
 
 /// Create a copy of MasterCustomersListState
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +237,16 @@ _$MasterCustomersListStateCopyWith<_MasterCustomersListState> get copyWith => __
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MasterCustomersListState&&const DeepCollectionEquality().equals(other._customers, _customers)&&(identical(other.query, query) || other.query == query));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MasterCustomersListState&&const DeepCollectionEquality().equals(other._customers, _customers)&&(identical(other.query, query) || other.query == query)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_customers),query);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_customers),query,page,hasMore,isSearching,isLoadingMore);
 
 @override
 String toString() {
-  return 'MasterCustomersListState(customers: $customers, query: $query)';
+  return 'MasterCustomersListState(customers: $customers, query: $query, page: $page, hasMore: $hasMore, isSearching: $isSearching, isLoadingMore: $isLoadingMore)';
 }
 
 
@@ -249,7 +257,7 @@ abstract mixin class _$MasterCustomersListStateCopyWith<$Res> implements $Master
   factory _$MasterCustomersListStateCopyWith(_MasterCustomersListState value, $Res Function(_MasterCustomersListState) _then) = __$MasterCustomersListStateCopyWithImpl;
 @override @useResult
 $Res call({
- List<MasterCustomerModel> customers, String query
+ List<MasterCustomerModel> customers, String query, int page, bool hasMore, bool isSearching, bool isLoadingMore
 });
 
 
@@ -266,11 +274,15 @@ class __$MasterCustomersListStateCopyWithImpl<$Res>
 
 /// Create a copy of MasterCustomersListState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? customers = null,Object? query = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? customers = null,Object? query = null,Object? page = null,Object? hasMore = null,Object? isSearching = null,Object? isLoadingMore = null,}) {
   return _then(_MasterCustomersListState(
 customers: null == customers ? _self._customers : customers // ignore: cast_nullable_to_non_nullable
 as List<MasterCustomerModel>,query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
-as String,
+as String,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isSearching: null == isSearching ? _self.isSearching : isSearching // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

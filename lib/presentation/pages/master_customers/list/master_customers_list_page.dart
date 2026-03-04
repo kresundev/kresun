@@ -4,11 +4,39 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/master_customer_model.dart';
 import 'master_customers_list_view_model.dart';
 
-class MasterCustomersListPage extends ConsumerWidget {
+class MasterCustomersListPage extends ConsumerStatefulWidget {
   const MasterCustomersListPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MasterCustomersListPage> createState() =>
+      _MasterCustomersListPageState();
+}
+
+class _MasterCustomersListPageState
+    extends ConsumerState<MasterCustomersListPage> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent - 200) {
+      ref.read(masterCustomersListViewModelProvider.notifier).loadMore();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final stateAsync = ref.watch(masterCustomersListViewModelProvider);
     final vm = ref.read(masterCustomersListViewModelProvider.notifier);
 
@@ -26,25 +54,40 @@ class MasterCustomersListPage extends ConsumerWidget {
       body: Column(
         children: [
           _SearchBar(onChanged: vm.onQueryChanged),
+          // Search loading indicator
+          stateAsync.whenData((s) => s.isSearching).valueOrNull == true
+              ? const LinearProgressIndicator(
+                  color: AppColors.primary,
+                  backgroundColor: Colors.transparent,
+                  minHeight: 2,
+                )
+              : const SizedBox(height: 2),
           Expanded(
             child: stateAsync.when(
               data: (state) {
-                final q = state.query.toLowerCase();
-                final filtered = q.isEmpty
-                    ? state.customers
-                    : state.customers
-                        .where((c) => c.name.toLowerCase().contains(q))
-                        .toList();
-
-                if (filtered.isEmpty) {
+                if (state.customers.isEmpty && !state.isSearching) {
                   return const _EmptyState();
                 }
-
                 return ListView.separated(
+                  controller: _scrollController,
                   padding: const EdgeInsets.all(16),
-                  itemCount: filtered.length,
+                  itemCount:
+                      state.customers.length + (state.isLoadingMore ? 1 : 0),
                   separatorBuilder: (_, __) => const SizedBox(height: 8),
-                  itemBuilder: (_, i) => _CustomerItem(customer: filtered[i]),
+                  itemBuilder: (_, i) {
+                    if (i == state.customers.length) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.primary,
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      );
+                    }
+                    return _CustomerItem(customer: state.customers[i]);
+                  },
                 );
               },
               loading: () => const Center(
