@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/master_customer_model.dart';
 import 'master_customers_list_view_model.dart';
@@ -86,7 +87,13 @@ class _MasterCustomersListPageState
                         ),
                       );
                     }
-                    return _CustomerItem(customer: state.customers[i]);
+                    return _CustomerItem(
+                      customer: state.customers[i],
+                      onTap: () => context.push(
+                        '/submit-first-phase',
+                        extra: state.customers[i],
+                      ),
+                    );
                   },
                 );
               },
@@ -147,13 +154,16 @@ class _SearchBar extends StatelessWidget {
 // ─── Customer Item ───────────────────────────────────────────────────────────
 
 class _CustomerItem extends StatelessWidget {
-  const _CustomerItem({required this.customer});
+  const _CustomerItem({required this.customer, required this.onTap});
 
   final MasterCustomerModel customer;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -204,6 +214,7 @@ class _CustomerItem extends StatelessWidget {
           const SizedBox(width: 12),
           _StatusBadge(status: customer.masterCustomerStatus),
         ],
+      ),
       ),
     );
   }
