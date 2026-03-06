@@ -42,10 +42,7 @@ class SubmitFourthPhasePage extends ConsumerWidget {
       final nextError = next.valueOrNull?.errorMessage;
       if (nextError != null && nextError != prevError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(nextError),
-            backgroundColor: AppColors.error,
-          ),
+          SnackBar(content: Text(nextError), backgroundColor: AppColors.error),
         );
       }
     });
@@ -61,14 +58,15 @@ class SubmitFourthPhasePage extends ConsumerWidget {
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           title: const Text(
-            'Submit Dokumen Fase 4',
+            'Input Data Lanjutan',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           elevation: 0,
         ),
         body: stateAsync.when(
-          loading: () =>
-              const Center(child: CircularProgressIndicator(color: AppColors.primary)),
+          loading: () => const Center(
+            child: CircularProgressIndicator(color: AppColors.primary),
+          ),
           error: (e, _) => Center(
             child: Text(
               'Gagal memuat data: $e',
@@ -92,7 +90,10 @@ class SubmitFourthPhasePage extends ConsumerWidget {
                 const SizedBox(height: 4),
                 const Text(
                   'Upload KK dan Akte Kelahiran calon nasabah',
-                  style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: 24),
 
@@ -146,11 +147,8 @@ class SubmitFourthPhasePage extends ConsumerWidget {
                               isPdf: state.isKkPdf,
                               isUploading: state.isKkUploading,
                               isUploaded: state.kkUrl != null,
-                              onTap: () => _pickFile(
-                                context,
-                                UploadField.kk,
-                                vm,
-                              ),
+                              onTap: () =>
+                                  _pickFile(context, UploadField.kk, vm),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -161,11 +159,8 @@ class SubmitFourthPhasePage extends ConsumerWidget {
                               isPdf: state.isAktePdf,
                               isUploading: state.isAkteUploading,
                               isUploaded: state.akteUrl != null,
-                              onTap: () => _pickFile(
-                                context,
-                                UploadField.akte,
-                                vm,
-                              ),
+                              onTap: () =>
+                                  _pickFile(context, UploadField.akte, vm),
                             ),
                           ),
                         ],
@@ -177,7 +172,8 @@ class SubmitFourthPhasePage extends ConsumerWidget {
                 const SizedBox(height: 28),
 
                 _SubmitButton(
-                  isEnabled: state.isFormValid &&
+                  isEnabled:
+                      state.isFormValid &&
                       !state.isAnyUploading &&
                       !state.isSubmitting,
                   isLoading: state.isSubmitting,
@@ -486,10 +482,7 @@ class _UploadCard extends StatelessWidget {
 // ─── File Picker Bottom Sheet ──────────────────────────────────────────────────
 
 class _FilePickerSheet extends StatelessWidget {
-  const _FilePickerSheet({
-    required this.onPickImage,
-    required this.onPickPdf,
-  });
+  const _FilePickerSheet({required this.onPickImage, required this.onPickPdf});
 
   final ValueChanged<ImageSource> onPickImage;
   final VoidCallback onPickPdf;

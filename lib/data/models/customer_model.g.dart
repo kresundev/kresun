@@ -25,6 +25,8 @@ _CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
       skUrl: json['sk_url'] as String?,
       akteUrl: json['akte_url'] as String?,
       closedProofUrl: json['closed_proof_url'] as String?,
+      closedProofRejectedReason:
+          json['closed_proof_rejected_reason'] as String?,
     );
 
 Map<String, dynamic> _$CustomerModelToJson(_CustomerModel instance) =>
@@ -44,6 +46,7 @@ Map<String, dynamic> _$CustomerModelToJson(_CustomerModel instance) =>
       'sk_url': instance.skUrl,
       'akte_url': instance.akteUrl,
       'closed_proof_url': instance.closedProofUrl,
+      'closed_proof_rejected_reason': instance.closedProofRejectedReason,
     };
 
 const _$SubmitStatusEnumMap = {
@@ -53,4 +56,6 @@ const _$SubmitStatusEnumMap = {
   SubmitStatus.submitted: 'submitted',
   SubmitStatus.closed: 'closed',
   SubmitStatus.rejected: 'rejected',
+  SubmitStatus.closedProofPending: 'closed_proof_pending',
+  SubmitStatus.closedProofRejected: 'closed_proof_rejected',
 };

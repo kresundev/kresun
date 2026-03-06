@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CustomerModel {
 
- String get id; String get name;@JsonKey(name: 'created_by') String get createdBy;@JsonKey(name: 'master_customer_id') String? get masterCustomerId;@JsonKey(name: 'submit_status') SubmitStatus get submitStatus;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'ktp_url') String? get ktpUrl;@JsonKey(name: 'kk_url') String? get kkUrl;@JsonKey(name: 'bank_name') String? get bankName;@JsonKey(name: 'simulation_info') String? get simulationInfo;@JsonKey(name: 'review_info') String? get reviewInfo;@JsonKey(name: 'phone_number') String? get phoneNumber;@JsonKey(name: 'sk_url') String? get skUrl;@JsonKey(name: 'akte_url') String? get akteUrl;@JsonKey(name: 'closed_proof_url') String? get closedProofUrl;
+ String get id; String get name;@JsonKey(name: 'created_by') String get createdBy;@JsonKey(name: 'master_customer_id') String? get masterCustomerId;@JsonKey(name: 'submit_status') SubmitStatus get submitStatus;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'ktp_url') String? get ktpUrl;@JsonKey(name: 'kk_url') String? get kkUrl;@JsonKey(name: 'bank_name') String? get bankName;@JsonKey(name: 'simulation_info') String? get simulationInfo;@JsonKey(name: 'review_info') String? get reviewInfo;@JsonKey(name: 'phone_number') String? get phoneNumber;@JsonKey(name: 'sk_url') String? get skUrl;@JsonKey(name: 'akte_url') String? get akteUrl;@JsonKey(name: 'closed_proof_url') String? get closedProofUrl;@JsonKey(name: 'closed_proof_rejected_reason') String? get closedProofRejectedReason;
 /// Create a copy of CustomerModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $CustomerModelCopyWith<CustomerModel> get copyWith => _$CustomerModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdBy, createdBy) || other.createdBy == createdBy)&&(identical(other.masterCustomerId, masterCustomerId) || other.masterCustomerId == masterCustomerId)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.kkUrl, kkUrl) || other.kkUrl == kkUrl)&&(identical(other.bankName, bankName) || other.bankName == bankName)&&(identical(other.simulationInfo, simulationInfo) || other.simulationInfo == simulationInfo)&&(identical(other.reviewInfo, reviewInfo) || other.reviewInfo == reviewInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.akteUrl, akteUrl) || other.akteUrl == akteUrl)&&(identical(other.closedProofUrl, closedProofUrl) || other.closedProofUrl == closedProofUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomerModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdBy, createdBy) || other.createdBy == createdBy)&&(identical(other.masterCustomerId, masterCustomerId) || other.masterCustomerId == masterCustomerId)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.kkUrl, kkUrl) || other.kkUrl == kkUrl)&&(identical(other.bankName, bankName) || other.bankName == bankName)&&(identical(other.simulationInfo, simulationInfo) || other.simulationInfo == simulationInfo)&&(identical(other.reviewInfo, reviewInfo) || other.reviewInfo == reviewInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.akteUrl, akteUrl) || other.akteUrl == akteUrl)&&(identical(other.closedProofUrl, closedProofUrl) || other.closedProofUrl == closedProofUrl)&&(identical(other.closedProofRejectedReason, closedProofRejectedReason) || other.closedProofRejectedReason == closedProofRejectedReason));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,createdBy,masterCustomerId,submitStatus,createdAt,ktpUrl,kkUrl,bankName,simulationInfo,reviewInfo,phoneNumber,skUrl,akteUrl,closedProofUrl);
+int get hashCode => Object.hash(runtimeType,id,name,createdBy,masterCustomerId,submitStatus,createdAt,ktpUrl,kkUrl,bankName,simulationInfo,reviewInfo,phoneNumber,skUrl,akteUrl,closedProofUrl,closedProofRejectedReason);
 
 @override
 String toString() {
-  return 'CustomerModel(id: $id, name: $name, createdBy: $createdBy, masterCustomerId: $masterCustomerId, submitStatus: $submitStatus, createdAt: $createdAt, ktpUrl: $ktpUrl, kkUrl: $kkUrl, bankName: $bankName, simulationInfo: $simulationInfo, reviewInfo: $reviewInfo, phoneNumber: $phoneNumber, skUrl: $skUrl, akteUrl: $akteUrl, closedProofUrl: $closedProofUrl)';
+  return 'CustomerModel(id: $id, name: $name, createdBy: $createdBy, masterCustomerId: $masterCustomerId, submitStatus: $submitStatus, createdAt: $createdAt, ktpUrl: $ktpUrl, kkUrl: $kkUrl, bankName: $bankName, simulationInfo: $simulationInfo, reviewInfo: $reviewInfo, phoneNumber: $phoneNumber, skUrl: $skUrl, akteUrl: $akteUrl, closedProofUrl: $closedProofUrl, closedProofRejectedReason: $closedProofRejectedReason)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $CustomerModelCopyWith<$Res>  {
   factory $CustomerModelCopyWith(CustomerModel value, $Res Function(CustomerModel) _then) = _$CustomerModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String name,@JsonKey(name: 'created_by') String createdBy,@JsonKey(name: 'master_customer_id') String? masterCustomerId,@JsonKey(name: 'submit_status') SubmitStatus submitStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'ktp_url') String? ktpUrl,@JsonKey(name: 'kk_url') String? kkUrl,@JsonKey(name: 'bank_name') String? bankName,@JsonKey(name: 'simulation_info') String? simulationInfo,@JsonKey(name: 'review_info') String? reviewInfo,@JsonKey(name: 'phone_number') String? phoneNumber,@JsonKey(name: 'sk_url') String? skUrl,@JsonKey(name: 'akte_url') String? akteUrl,@JsonKey(name: 'closed_proof_url') String? closedProofUrl
+ String id, String name,@JsonKey(name: 'created_by') String createdBy,@JsonKey(name: 'master_customer_id') String? masterCustomerId,@JsonKey(name: 'submit_status') SubmitStatus submitStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'ktp_url') String? ktpUrl,@JsonKey(name: 'kk_url') String? kkUrl,@JsonKey(name: 'bank_name') String? bankName,@JsonKey(name: 'simulation_info') String? simulationInfo,@JsonKey(name: 'review_info') String? reviewInfo,@JsonKey(name: 'phone_number') String? phoneNumber,@JsonKey(name: 'sk_url') String? skUrl,@JsonKey(name: 'akte_url') String? akteUrl,@JsonKey(name: 'closed_proof_url') String? closedProofUrl,@JsonKey(name: 'closed_proof_rejected_reason') String? closedProofRejectedReason
 });
 
 
@@ -65,7 +65,7 @@ class _$CustomerModelCopyWithImpl<$Res>
 
 /// Create a copy of CustomerModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? createdBy = null,Object? masterCustomerId = freezed,Object? submitStatus = null,Object? createdAt = freezed,Object? ktpUrl = freezed,Object? kkUrl = freezed,Object? bankName = freezed,Object? simulationInfo = freezed,Object? reviewInfo = freezed,Object? phoneNumber = freezed,Object? skUrl = freezed,Object? akteUrl = freezed,Object? closedProofUrl = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? createdBy = null,Object? masterCustomerId = freezed,Object? submitStatus = null,Object? createdAt = freezed,Object? ktpUrl = freezed,Object? kkUrl = freezed,Object? bankName = freezed,Object? simulationInfo = freezed,Object? reviewInfo = freezed,Object? phoneNumber = freezed,Object? skUrl = freezed,Object? akteUrl = freezed,Object? closedProofUrl = freezed,Object? closedProofRejectedReason = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -82,6 +82,7 @@ as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber
 as String?,skUrl: freezed == skUrl ? _self.skUrl : skUrl // ignore: cast_nullable_to_non_nullable
 as String?,akteUrl: freezed == akteUrl ? _self.akteUrl : akteUrl // ignore: cast_nullable_to_non_nullable
 as String?,closedProofUrl: freezed == closedProofUrl ? _self.closedProofUrl : closedProofUrl // ignore: cast_nullable_to_non_nullable
+as String?,closedProofRejectedReason: freezed == closedProofRejectedReason ? _self.closedProofRejectedReason : closedProofRejectedReason // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -167,10 +168,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(name: 'created_by')  String createdBy, @JsonKey(name: 'master_customer_id')  String? masterCustomerId, @JsonKey(name: 'submit_status')  SubmitStatus submitStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'ktp_url')  String? ktpUrl, @JsonKey(name: 'kk_url')  String? kkUrl, @JsonKey(name: 'bank_name')  String? bankName, @JsonKey(name: 'simulation_info')  String? simulationInfo, @JsonKey(name: 'review_info')  String? reviewInfo, @JsonKey(name: 'phone_number')  String? phoneNumber, @JsonKey(name: 'sk_url')  String? skUrl, @JsonKey(name: 'akte_url')  String? akteUrl, @JsonKey(name: 'closed_proof_url')  String? closedProofUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(name: 'created_by')  String createdBy, @JsonKey(name: 'master_customer_id')  String? masterCustomerId, @JsonKey(name: 'submit_status')  SubmitStatus submitStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'ktp_url')  String? ktpUrl, @JsonKey(name: 'kk_url')  String? kkUrl, @JsonKey(name: 'bank_name')  String? bankName, @JsonKey(name: 'simulation_info')  String? simulationInfo, @JsonKey(name: 'review_info')  String? reviewInfo, @JsonKey(name: 'phone_number')  String? phoneNumber, @JsonKey(name: 'sk_url')  String? skUrl, @JsonKey(name: 'akte_url')  String? akteUrl, @JsonKey(name: 'closed_proof_url')  String? closedProofUrl, @JsonKey(name: 'closed_proof_rejected_reason')  String? closedProofRejectedReason)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CustomerModel() when $default != null:
-return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that.submitStatus,_that.createdAt,_that.ktpUrl,_that.kkUrl,_that.bankName,_that.simulationInfo,_that.reviewInfo,_that.phoneNumber,_that.skUrl,_that.akteUrl,_that.closedProofUrl);case _:
+return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that.submitStatus,_that.createdAt,_that.ktpUrl,_that.kkUrl,_that.bankName,_that.simulationInfo,_that.reviewInfo,_that.phoneNumber,_that.skUrl,_that.akteUrl,_that.closedProofUrl,_that.closedProofRejectedReason);case _:
   return orElse();
 
 }
@@ -188,10 +189,10 @@ return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(name: 'created_by')  String createdBy, @JsonKey(name: 'master_customer_id')  String? masterCustomerId, @JsonKey(name: 'submit_status')  SubmitStatus submitStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'ktp_url')  String? ktpUrl, @JsonKey(name: 'kk_url')  String? kkUrl, @JsonKey(name: 'bank_name')  String? bankName, @JsonKey(name: 'simulation_info')  String? simulationInfo, @JsonKey(name: 'review_info')  String? reviewInfo, @JsonKey(name: 'phone_number')  String? phoneNumber, @JsonKey(name: 'sk_url')  String? skUrl, @JsonKey(name: 'akte_url')  String? akteUrl, @JsonKey(name: 'closed_proof_url')  String? closedProofUrl)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String name, @JsonKey(name: 'created_by')  String createdBy, @JsonKey(name: 'master_customer_id')  String? masterCustomerId, @JsonKey(name: 'submit_status')  SubmitStatus submitStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'ktp_url')  String? ktpUrl, @JsonKey(name: 'kk_url')  String? kkUrl, @JsonKey(name: 'bank_name')  String? bankName, @JsonKey(name: 'simulation_info')  String? simulationInfo, @JsonKey(name: 'review_info')  String? reviewInfo, @JsonKey(name: 'phone_number')  String? phoneNumber, @JsonKey(name: 'sk_url')  String? skUrl, @JsonKey(name: 'akte_url')  String? akteUrl, @JsonKey(name: 'closed_proof_url')  String? closedProofUrl, @JsonKey(name: 'closed_proof_rejected_reason')  String? closedProofRejectedReason)  $default,) {final _that = this;
 switch (_that) {
 case _CustomerModel():
-return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that.submitStatus,_that.createdAt,_that.ktpUrl,_that.kkUrl,_that.bankName,_that.simulationInfo,_that.reviewInfo,_that.phoneNumber,_that.skUrl,_that.akteUrl,_that.closedProofUrl);case _:
+return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that.submitStatus,_that.createdAt,_that.ktpUrl,_that.kkUrl,_that.bankName,_that.simulationInfo,_that.reviewInfo,_that.phoneNumber,_that.skUrl,_that.akteUrl,_that.closedProofUrl,_that.closedProofRejectedReason);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -208,10 +209,10 @@ return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(name: 'created_by')  String createdBy, @JsonKey(name: 'master_customer_id')  String? masterCustomerId, @JsonKey(name: 'submit_status')  SubmitStatus submitStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'ktp_url')  String? ktpUrl, @JsonKey(name: 'kk_url')  String? kkUrl, @JsonKey(name: 'bank_name')  String? bankName, @JsonKey(name: 'simulation_info')  String? simulationInfo, @JsonKey(name: 'review_info')  String? reviewInfo, @JsonKey(name: 'phone_number')  String? phoneNumber, @JsonKey(name: 'sk_url')  String? skUrl, @JsonKey(name: 'akte_url')  String? akteUrl, @JsonKey(name: 'closed_proof_url')  String? closedProofUrl)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String name, @JsonKey(name: 'created_by')  String createdBy, @JsonKey(name: 'master_customer_id')  String? masterCustomerId, @JsonKey(name: 'submit_status')  SubmitStatus submitStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'ktp_url')  String? ktpUrl, @JsonKey(name: 'kk_url')  String? kkUrl, @JsonKey(name: 'bank_name')  String? bankName, @JsonKey(name: 'simulation_info')  String? simulationInfo, @JsonKey(name: 'review_info')  String? reviewInfo, @JsonKey(name: 'phone_number')  String? phoneNumber, @JsonKey(name: 'sk_url')  String? skUrl, @JsonKey(name: 'akte_url')  String? akteUrl, @JsonKey(name: 'closed_proof_url')  String? closedProofUrl, @JsonKey(name: 'closed_proof_rejected_reason')  String? closedProofRejectedReason)?  $default,) {final _that = this;
 switch (_that) {
 case _CustomerModel() when $default != null:
-return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that.submitStatus,_that.createdAt,_that.ktpUrl,_that.kkUrl,_that.bankName,_that.simulationInfo,_that.reviewInfo,_that.phoneNumber,_that.skUrl,_that.akteUrl,_that.closedProofUrl);case _:
+return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that.submitStatus,_that.createdAt,_that.ktpUrl,_that.kkUrl,_that.bankName,_that.simulationInfo,_that.reviewInfo,_that.phoneNumber,_that.skUrl,_that.akteUrl,_that.closedProofUrl,_that.closedProofRejectedReason);case _:
   return null;
 
 }
@@ -223,7 +224,7 @@ return $default(_that.id,_that.name,_that.createdBy,_that.masterCustomerId,_that
 @JsonSerializable()
 
 class _CustomerModel implements CustomerModel {
-  const _CustomerModel({required this.id, required this.name, @JsonKey(name: 'created_by') required this.createdBy, @JsonKey(name: 'master_customer_id') this.masterCustomerId, @JsonKey(name: 'submit_status') required this.submitStatus, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'ktp_url') this.ktpUrl, @JsonKey(name: 'kk_url') this.kkUrl, @JsonKey(name: 'bank_name') this.bankName, @JsonKey(name: 'simulation_info') this.simulationInfo, @JsonKey(name: 'review_info') this.reviewInfo, @JsonKey(name: 'phone_number') this.phoneNumber, @JsonKey(name: 'sk_url') this.skUrl, @JsonKey(name: 'akte_url') this.akteUrl, @JsonKey(name: 'closed_proof_url') this.closedProofUrl});
+  const _CustomerModel({required this.id, required this.name, @JsonKey(name: 'created_by') required this.createdBy, @JsonKey(name: 'master_customer_id') this.masterCustomerId, @JsonKey(name: 'submit_status') required this.submitStatus, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'ktp_url') this.ktpUrl, @JsonKey(name: 'kk_url') this.kkUrl, @JsonKey(name: 'bank_name') this.bankName, @JsonKey(name: 'simulation_info') this.simulationInfo, @JsonKey(name: 'review_info') this.reviewInfo, @JsonKey(name: 'phone_number') this.phoneNumber, @JsonKey(name: 'sk_url') this.skUrl, @JsonKey(name: 'akte_url') this.akteUrl, @JsonKey(name: 'closed_proof_url') this.closedProofUrl, @JsonKey(name: 'closed_proof_rejected_reason') this.closedProofRejectedReason});
   factory _CustomerModel.fromJson(Map<String, dynamic> json) => _$CustomerModelFromJson(json);
 
 @override final  String id;
@@ -241,6 +242,7 @@ class _CustomerModel implements CustomerModel {
 @override@JsonKey(name: 'sk_url') final  String? skUrl;
 @override@JsonKey(name: 'akte_url') final  String? akteUrl;
 @override@JsonKey(name: 'closed_proof_url') final  String? closedProofUrl;
+@override@JsonKey(name: 'closed_proof_rejected_reason') final  String? closedProofRejectedReason;
 
 /// Create a copy of CustomerModel
 /// with the given fields replaced by the non-null parameter values.
@@ -255,16 +257,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdBy, createdBy) || other.createdBy == createdBy)&&(identical(other.masterCustomerId, masterCustomerId) || other.masterCustomerId == masterCustomerId)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.kkUrl, kkUrl) || other.kkUrl == kkUrl)&&(identical(other.bankName, bankName) || other.bankName == bankName)&&(identical(other.simulationInfo, simulationInfo) || other.simulationInfo == simulationInfo)&&(identical(other.reviewInfo, reviewInfo) || other.reviewInfo == reviewInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.akteUrl, akteUrl) || other.akteUrl == akteUrl)&&(identical(other.closedProofUrl, closedProofUrl) || other.closedProofUrl == closedProofUrl));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomerModel&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdBy, createdBy) || other.createdBy == createdBy)&&(identical(other.masterCustomerId, masterCustomerId) || other.masterCustomerId == masterCustomerId)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.kkUrl, kkUrl) || other.kkUrl == kkUrl)&&(identical(other.bankName, bankName) || other.bankName == bankName)&&(identical(other.simulationInfo, simulationInfo) || other.simulationInfo == simulationInfo)&&(identical(other.reviewInfo, reviewInfo) || other.reviewInfo == reviewInfo)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.akteUrl, akteUrl) || other.akteUrl == akteUrl)&&(identical(other.closedProofUrl, closedProofUrl) || other.closedProofUrl == closedProofUrl)&&(identical(other.closedProofRejectedReason, closedProofRejectedReason) || other.closedProofRejectedReason == closedProofRejectedReason));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,createdBy,masterCustomerId,submitStatus,createdAt,ktpUrl,kkUrl,bankName,simulationInfo,reviewInfo,phoneNumber,skUrl,akteUrl,closedProofUrl);
+int get hashCode => Object.hash(runtimeType,id,name,createdBy,masterCustomerId,submitStatus,createdAt,ktpUrl,kkUrl,bankName,simulationInfo,reviewInfo,phoneNumber,skUrl,akteUrl,closedProofUrl,closedProofRejectedReason);
 
 @override
 String toString() {
-  return 'CustomerModel(id: $id, name: $name, createdBy: $createdBy, masterCustomerId: $masterCustomerId, submitStatus: $submitStatus, createdAt: $createdAt, ktpUrl: $ktpUrl, kkUrl: $kkUrl, bankName: $bankName, simulationInfo: $simulationInfo, reviewInfo: $reviewInfo, phoneNumber: $phoneNumber, skUrl: $skUrl, akteUrl: $akteUrl, closedProofUrl: $closedProofUrl)';
+  return 'CustomerModel(id: $id, name: $name, createdBy: $createdBy, masterCustomerId: $masterCustomerId, submitStatus: $submitStatus, createdAt: $createdAt, ktpUrl: $ktpUrl, kkUrl: $kkUrl, bankName: $bankName, simulationInfo: $simulationInfo, reviewInfo: $reviewInfo, phoneNumber: $phoneNumber, skUrl: $skUrl, akteUrl: $akteUrl, closedProofUrl: $closedProofUrl, closedProofRejectedReason: $closedProofRejectedReason)';
 }
 
 
@@ -275,7 +277,7 @@ abstract mixin class _$CustomerModelCopyWith<$Res> implements $CustomerModelCopy
   factory _$CustomerModelCopyWith(_CustomerModel value, $Res Function(_CustomerModel) _then) = __$CustomerModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name,@JsonKey(name: 'created_by') String createdBy,@JsonKey(name: 'master_customer_id') String? masterCustomerId,@JsonKey(name: 'submit_status') SubmitStatus submitStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'ktp_url') String? ktpUrl,@JsonKey(name: 'kk_url') String? kkUrl,@JsonKey(name: 'bank_name') String? bankName,@JsonKey(name: 'simulation_info') String? simulationInfo,@JsonKey(name: 'review_info') String? reviewInfo,@JsonKey(name: 'phone_number') String? phoneNumber,@JsonKey(name: 'sk_url') String? skUrl,@JsonKey(name: 'akte_url') String? akteUrl,@JsonKey(name: 'closed_proof_url') String? closedProofUrl
+ String id, String name,@JsonKey(name: 'created_by') String createdBy,@JsonKey(name: 'master_customer_id') String? masterCustomerId,@JsonKey(name: 'submit_status') SubmitStatus submitStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'ktp_url') String? ktpUrl,@JsonKey(name: 'kk_url') String? kkUrl,@JsonKey(name: 'bank_name') String? bankName,@JsonKey(name: 'simulation_info') String? simulationInfo,@JsonKey(name: 'review_info') String? reviewInfo,@JsonKey(name: 'phone_number') String? phoneNumber,@JsonKey(name: 'sk_url') String? skUrl,@JsonKey(name: 'akte_url') String? akteUrl,@JsonKey(name: 'closed_proof_url') String? closedProofUrl,@JsonKey(name: 'closed_proof_rejected_reason') String? closedProofRejectedReason
 });
 
 
@@ -292,7 +294,7 @@ class __$CustomerModelCopyWithImpl<$Res>
 
 /// Create a copy of CustomerModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? createdBy = null,Object? masterCustomerId = freezed,Object? submitStatus = null,Object? createdAt = freezed,Object? ktpUrl = freezed,Object? kkUrl = freezed,Object? bankName = freezed,Object? simulationInfo = freezed,Object? reviewInfo = freezed,Object? phoneNumber = freezed,Object? skUrl = freezed,Object? akteUrl = freezed,Object? closedProofUrl = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? createdBy = null,Object? masterCustomerId = freezed,Object? submitStatus = null,Object? createdAt = freezed,Object? ktpUrl = freezed,Object? kkUrl = freezed,Object? bankName = freezed,Object? simulationInfo = freezed,Object? reviewInfo = freezed,Object? phoneNumber = freezed,Object? skUrl = freezed,Object? akteUrl = freezed,Object? closedProofUrl = freezed,Object? closedProofRejectedReason = freezed,}) {
   return _then(_CustomerModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -309,6 +311,7 @@ as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber
 as String?,skUrl: freezed == skUrl ? _self.skUrl : skUrl // ignore: cast_nullable_to_non_nullable
 as String?,akteUrl: freezed == akteUrl ? _self.akteUrl : akteUrl // ignore: cast_nullable_to_non_nullable
 as String?,closedProofUrl: freezed == closedProofUrl ? _self.closedProofUrl : closedProofUrl // ignore: cast_nullable_to_non_nullable
+as String?,closedProofRejectedReason: freezed == closedProofRejectedReason ? _self.closedProofRejectedReason : closedProofRejectedReason // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

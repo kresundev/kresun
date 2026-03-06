@@ -236,6 +236,26 @@ class _CustomerItem extends StatelessWidget {
                       ],
                     ),
                   ],
+                  if (customer.createdAt != null) ...[
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.calendar_today_outlined,
+                          size: 13,
+                          color: AppColors.textSecondary,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          _formatDate(customer.createdAt!),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -246,6 +266,24 @@ class _CustomerItem extends StatelessWidget {
       ),
     );
   }
+}
+
+String _formatDate(DateTime date) {
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'Mei',
+    'Jun',
+    'Jul',
+    'Agu',
+    'Sep',
+    'Okt',
+    'Nov',
+    'Des',
+  ];
+  return '${date.day} ${months[date.month - 1]} ${date.year}';
 }
 
 // ─── Status Badge ────────────────────────────────────────────────────────────
@@ -264,6 +302,14 @@ class _StatusBadge extends StatelessWidget {
       SubmitStatus.submitted => ('Fase 4', const Color(0xFF10B981)),
       SubmitStatus.closed => ('Selesai', AppColors.textSecondary),
       SubmitStatus.rejected => ('Ditolak', AppColors.error),
+      SubmitStatus.closedProofPending => (
+        'Pengajuan Komisi Ditolak',
+        AppColors.error,
+      ),
+      SubmitStatus.closedProofRejected => (
+        'Menunggu Approval Admin',
+        const Color(0xFF10B981),
+      ),
     };
 
     return Container(

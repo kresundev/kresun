@@ -10,7 +10,9 @@ enum SubmitStatus {
   reviewed('reviewed'),
   submitted('submitted'),
   closed('closed'),
-  rejected('rejected');
+  rejected('rejected'),
+  closedProofPending('closed_proof_pending'),
+  closedProofRejected('closed_proof_rejected');
 
   const SubmitStatus(this.value);
   final String value;
@@ -34,6 +36,8 @@ abstract class CustomerModel with _$CustomerModel {
     @JsonKey(name: 'sk_url') String? skUrl,
     @JsonKey(name: 'akte_url') String? akteUrl,
     @JsonKey(name: 'closed_proof_url') String? closedProofUrl,
+    @JsonKey(name: 'closed_proof_rejected_reason')
+    String? closedProofRejectedReason,
   }) = _CustomerModel;
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) =>
