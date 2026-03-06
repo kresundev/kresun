@@ -96,11 +96,119 @@ class _SubmitThirdPhasePageState extends ConsumerState<SubmitThirdPhasePage> {
             reviewInfoController: _reviewInfoController,
             onApprovalChanged: vm.onApprovalChanged,
             onReviewInfoChanged: vm.onReviewInfoChanged,
-            onSubmit: vm.submit,
+            onSubmit: () => _confirm(context, state.approval, vm.submit),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _confirm(
+    BuildContext context,
+    bool? approval,
+    VoidCallback onConfirmed,
+  ) async {
+    final isApprove = approval == true;
+    final color = isApprove ? const Color(0xFF10B981) : AppColors.error;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (_) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.12),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  isApprove
+                      ? Icons.check_circle_outline_rounded
+                      : Icons.cancel_outlined,
+                  color: color,
+                  size: 34,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                isApprove ? 'Konfirmasi Persetujuan' : 'Konfirmasi Penolakan',
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                isApprove
+                    ? 'Apakah Anda yakin ingin menyetujui pengajuan ini?'
+                    : 'Apakah Anda yakin ingin menolak pengajuan ini?',
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textSecondary,
+                  height: 1.5,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.textSecondary,
+                        side: const BorderSide(color: Color(0xFFE8E8F0)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 13),
+                      ),
+                      child: const Text(
+                        'Batal',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: color,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 13),
+                      ),
+                      child: Text(
+                        isApprove ? 'Setujui' : 'Tolak',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+    if (confirmed == true) onConfirmed();
   }
 }
 
