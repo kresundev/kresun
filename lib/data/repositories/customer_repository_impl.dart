@@ -52,13 +52,14 @@ class CustomerRepositoryImpl implements CustomerRepository {
     simulationInfo: simulationInfo,
   );
   @override
-  Future<({String name, String? phoneNumber, String? bankName})>
+  Future<({String name, String? phoneNumber, String? bankName, String? reviewInfo})>
       getCustomerById(String id) async {
     final data = await _customer.getCustomerById(id);
     return (
       name: data['name'] as String,
       phoneNumber: data['phone_number'] as String?,
       bankName: data['bank_name'] as String?,
+      reviewInfo: data['review_info'] as String?,
     );
   }
 

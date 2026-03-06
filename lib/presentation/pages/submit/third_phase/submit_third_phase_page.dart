@@ -58,10 +58,12 @@ class _SubmitThirdPhasePageState extends ConsumerState<SubmitThirdPhasePage> {
         final id = widget.customerId;
         final fromList = widget.fromCustomerList;
         router.go('/home');
-        Future.microtask(() => router.push('/submit-fourth-phase', extra: {
-              'customerId': id,
-              'fromCustomerList': fromList,
-            }));
+        Future.microtask(
+          () => router.push(
+            '/submit-fourth-phase',
+            extra: {'customerId': id, 'fromCustomerList': fromList},
+          ),
+        );
       } else if (nextStatus == SubmitStatus.rejected &&
           prevStatus == SubmitStatus.simulationUploaded) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -70,17 +72,21 @@ class _SubmitThirdPhasePageState extends ConsumerState<SubmitThirdPhasePage> {
             backgroundColor: Color(0xFF6B7280),
           ),
         );
-        context.go('/home');
+        final router = GoRouter.of(context);
+        final id = widget.customerId;
+        final fromList = widget.fromCustomerList;
+        router.go('/home');
+        Future.microtask(() => router.push('/submit-rejected', extra: {
+              'customerId': id,
+              'fromCustomerList': fromList,
+            }));
       }
 
       final prevError = prev?.valueOrNull?.errorMessage;
       final nextError = next.valueOrNull?.errorMessage;
       if (nextError != null && nextError != prevError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(nextError),
-            backgroundColor: AppColors.error,
-          ),
+          SnackBar(content: Text(nextError), backgroundColor: AppColors.error),
         );
       }
     });
@@ -396,13 +402,18 @@ class _Body extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 6, left: 4),
                     child: Row(
                       children: [
-                        const Icon(Icons.info_outline,
-                            size: 13, color: AppColors.error),
+                        const Icon(
+                          Icons.info_outline,
+                          size: 13,
+                          color: AppColors.error,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           state.reviewInfoError!,
                           style: const TextStyle(
-                              fontSize: 12, color: AppColors.error),
+                            fontSize: 12,
+                            color: AppColors.error,
+                          ),
                         ),
                       ],
                     ),
@@ -610,8 +621,9 @@ class _SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isApprove = approval == true;
-    final color =
-        approval == null ? AppColors.primary : (isApprove ? const Color(0xFF10B981) : AppColors.error);
+    final color = approval == null
+        ? AppColors.primary
+        : (isApprove ? const Color(0xFF10B981) : AppColors.error);
 
     return AnimatedOpacity(
       duration: const Duration(milliseconds: 200),

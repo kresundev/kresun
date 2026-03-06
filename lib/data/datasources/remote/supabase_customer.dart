@@ -34,7 +34,7 @@ class SupabaseCustomerDataSource {
   Future<Map<String, dynamic>> getCustomerById(String id) async {
     return await _client
         .from('customers')
-        .select('name, phone_number, bank_name')
+        .select('name, phone_number, bank_name, review_info')
         .eq('id', id)
         .single();
   }

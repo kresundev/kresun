@@ -108,6 +108,13 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
                           'fromCustomerList': true,
                         },
                       ),
+                      SubmitStatus.rejected => () => context.push(
+                        '/submit-rejected',
+                        extra: {
+                          'customerId': customer.id,
+                          'fromCustomerList': true,
+                        },
+                      ),
                       _ => null,
                     };
                     return _CustomerItem(customer: customer, onTap: onTap);
