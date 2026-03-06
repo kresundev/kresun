@@ -22,6 +22,7 @@ class SubmitFirstPhaseViewModel extends _$SubmitFirstPhaseViewModel {
       return SubmitFirstPhaseState(
         name: masterCustomer.name,
         isNameReadOnly: true,
+        phoneNumber: masterCustomer.phoneNumber,
       );
     }
     return const SubmitFirstPhaseState();
@@ -29,6 +30,11 @@ class SubmitFirstPhaseViewModel extends _$SubmitFirstPhaseViewModel {
 
   void onNameChanged(String value) {
     state = state.copyWith(name: value, isNameDirty: true, errorMessage: null);
+  }
+
+  void onPhoneChanged(String value) {
+    state =
+        state.copyWith(phoneNumber: value, isPhoneDirty: true, errorMessage: null);
   }
 
   Future<void> onPickImage(UploadField field, ImageSource source) async {
@@ -90,7 +96,9 @@ class SubmitFirstPhaseViewModel extends _$SubmitFirstPhaseViewModel {
         createdBy: '',
         masterCustomerId: _masterCustomer?.id ?? '',
         submitStatus: SubmitStatus.init,
-        phoneNumber: _masterCustomer?.phoneNumber,
+        phoneNumber: state.phoneNumber.trim().isEmpty
+            ? null
+            : state.phoneNumber.trim(),
         ktpUrl: state.ktpUrl,
         skUrl: state.skUrl,
       );

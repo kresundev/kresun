@@ -11,6 +11,8 @@ abstract class SubmitFirstPhaseState with _$SubmitFirstPhaseState {
     @Default('') String name,
     @Default(false) bool isNameDirty,
     @Default(false) bool isNameReadOnly,
+    @Default('') String phoneNumber,
+    @Default(false) bool isPhoneDirty,
     String? ktpUrl,
     String? ktpLocalPath,
     @Default(false) bool isKtpUploading,
@@ -24,13 +26,22 @@ abstract class SubmitFirstPhaseState with _$SubmitFirstPhaseState {
   }) = _SubmitFirstPhaseState;
 
   bool get isFormValid =>
-      name.trim().isNotEmpty && ktpUrl != null && skUrl != null;
+      name.trim().isNotEmpty &&
+      phoneNumber.trim().isNotEmpty &&
+      ktpUrl != null &&
+      skUrl != null;
 
   bool get isAnyUploading => isKtpUploading || isSkUploading;
 
   String? get nameError {
     if (!isNameDirty) return null;
     if (name.trim().isEmpty) return 'Nama tidak boleh kosong';
+    return null;
+  }
+
+  String? get phoneError {
+    if (!isPhoneDirty) return null;
+    if (phoneNumber.trim().isEmpty) return 'Nomor HP tidak boleh kosong';
     return null;
   }
 }

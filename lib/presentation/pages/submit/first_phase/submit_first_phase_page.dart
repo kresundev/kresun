@@ -20,6 +20,7 @@ class SubmitFirstPhasePage extends ConsumerStatefulWidget {
 
 class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
   late final TextEditingController _nameController;
+  late final TextEditingController _phoneController;
 
   @override
   void initState() {
@@ -27,11 +28,15 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
     _nameController = TextEditingController(
       text: widget.masterCustomer?.name ?? '',
     );
+    _phoneController = TextEditingController(
+      text: widget.masterCustomer?.phoneNumber ?? '',
+    );
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
@@ -131,6 +136,18 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
                       readOnly: state.isNameReadOnly,
                       onChanged: vm.onNameChanged,
                       errorText: state.nameError,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _FormField(
+                    label: 'Nomor HP',
+                    child: _NameField(
+                      controller: _phoneController,
+                      readOnly: false,
+                      onChanged: vm.onPhoneChanged,
+                      errorText: state.phoneError,
+                      hintText: 'Masukkan nomor HP calon nasabah',
+                      keyboardType: TextInputType.phone,
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -254,12 +271,16 @@ class _NameField extends StatelessWidget {
     required this.readOnly,
     required this.onChanged,
     this.errorText,
+    this.hintText = 'Masukkan nama lengkap calon nasabah',
+    this.keyboardType,
   });
 
   final TextEditingController controller;
   final bool readOnly;
   final ValueChanged<String> onChanged;
   final String? errorText;
+  final String hintText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -271,13 +292,14 @@ class _NameField extends StatelessWidget {
           controller: controller,
           onChanged: onChanged,
           readOnly: readOnly,
+          keyboardType: keyboardType,
           style: TextStyle(
             fontSize: 14,
             color:
                 readOnly ? AppColors.textSecondary : AppColors.textPrimary,
           ),
           decoration: InputDecoration(
-            hintText: 'Masukkan nama lengkap calon nasabah',
+            hintText: hintText,
             hintStyle:
                 const TextStyle(color: AppColors.textDisabled, fontSize: 14),
             filled: true,

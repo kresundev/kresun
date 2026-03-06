@@ -46,13 +46,17 @@ class SupabaseCustomerDataSource {
         params: {
           'name': customer.name,
           'ktp_url': customer.ktpUrl,
-          'kk_url': customer.skUrl,
-          if (customer.phoneNumber != null)
+          'sk_url': customer.skUrl,
+
+          if (customer.phoneNumber != null && customer.phoneNumber!.isNotEmpty)
             'phone_number': customer.phoneNumber,
-          if (customer.masterCustomerId != null)
+
+          if (customer.masterCustomerId != null &&
+              customer.masterCustomerId!.isNotEmpty)
             'master_customer_id': customer.masterCustomerId,
         },
       );
+
       return result as String;
     } catch (e) {
       throw ServerException('Gagal menyimpan data: $e');
