@@ -5,6 +5,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
 import 'submit_third_phase_state.dart';
 import 'submit_third_phase_view_model.dart';
+import '../../../../presentation/widgets/phase_stepper.dart';
 
 class SubmitThirdPhasePage extends ConsumerStatefulWidget {
   const SubmitThirdPhasePage({
@@ -107,23 +108,30 @@ class _SubmitThirdPhasePageState extends ConsumerState<SubmitThirdPhasePage> {
           ),
           elevation: 0,
         ),
-        body: stateAsync.when(
-          loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primary),
-          ),
-          error: (e, _) => Center(
-            child: Text(
-              'Gagal memuat data: $e',
-              style: const TextStyle(color: AppColors.error),
+        body: Column(
+          children: [
+            const PhaseStepper(currentStep: 3),
+            Expanded(
+              child: stateAsync.when(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
+                error: (e, _) => Center(
+                  child: Text(
+                    'Gagal memuat data: $e',
+                    style: const TextStyle(color: AppColors.error),
+                  ),
+                ),
+                data: (state) => _Body(
+                  state: state,
+                  reviewInfoController: _reviewInfoController,
+                  onApprovalChanged: vm.onApprovalChanged,
+                  onReviewInfoChanged: vm.onReviewInfoChanged,
+                  onSubmit: () => _confirm(context, state.approval, vm.submit),
+                ),
+              ),
             ),
-          ),
-          data: (state) => _Body(
-            state: state,
-            reviewInfoController: _reviewInfoController,
-            onApprovalChanged: vm.onApprovalChanged,
-            onReviewInfoChanged: vm.onReviewInfoChanged,
-            onSubmit: () => _confirm(context, state.approval, vm.submit),
-          ),
+          ],
         ),
       ),
     );

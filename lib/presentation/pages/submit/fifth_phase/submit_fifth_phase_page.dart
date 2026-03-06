@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
+import '../../../widgets/phase_stepper.dart';
 import 'submit_fifth_phase_page_view_model.dart';
 
 class SubmitFifthPhasePage extends ConsumerStatefulWidget {
@@ -93,16 +94,20 @@ class _SubmitFifthPhasePageState extends ConsumerState<SubmitFifthPhasePage> {
           ),
           elevation: 0,
         ),
-        body: stateAsync.when(
-          loading: () =>
-              const Center(child: CircularProgressIndicator(color: AppColors.primary)),
-          error: (e, _) => Center(
-            child: Text(
-              'Gagal memuat data: $e',
-              style: const TextStyle(color: AppColors.error),
-            ),
-          ),
-          data: (state) => SingleChildScrollView(
+        body: Column(
+          children: [
+            const PhaseStepper(currentStep: 5),
+            Expanded(
+              child: stateAsync.when(
+                loading: () => const Center(
+                    child: CircularProgressIndicator(color: AppColors.primary)),
+                error: (e, _) => Center(
+                  child: Text(
+                    'Gagal memuat data: $e',
+                    style: const TextStyle(color: AppColors.error),
+                  ),
+                ),
+                data: (state) => SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -225,6 +230,9 @@ class _SubmitFifthPhasePageState extends ConsumerState<SubmitFifthPhasePage> {
               ],
             ),
           ),
+        ),
+      ),
+          ],
         ),
       ),
     );

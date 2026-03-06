@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
 import 'submit_second_phase_view_model.dart';
+import '../../../../presentation/widgets/phase_stepper.dart';
 
 class SubmitSecondPhasePage extends ConsumerStatefulWidget {
   const SubmitSecondPhasePage({
@@ -96,7 +97,11 @@ class _SubmitSecondPhasePageState extends ConsumerState<SubmitSecondPhasePage> {
           ),
           elevation: 0,
         ),
-        body: SingleChildScrollView(
+        body: Column(
+          children: [
+            const PhaseStepper(currentStep: 2),
+            Expanded(
+              child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,6 +199,9 @@ class _SubmitSecondPhasePageState extends ConsumerState<SubmitSecondPhasePage> {
               const SizedBox(height: 24),
             ],
           ),
+        ),
+            ),
+          ],
         ),
       ),
     );

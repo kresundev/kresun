@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
+import '../../../widgets/phase_stepper.dart';
 import 'submit_fourth_phase_view_model.dart';
 
 class SubmitFourthPhasePage extends ConsumerWidget {
@@ -68,17 +69,21 @@ class SubmitFourthPhasePage extends ConsumerWidget {
           ),
           elevation: 0,
         ),
-        body: stateAsync.when(
-          loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primary),
-          ),
-          error: (e, _) => Center(
-            child: Text(
-              'Gagal memuat data: $e',
-              style: const TextStyle(color: AppColors.error),
-            ),
-          ),
-          data: (state) => SingleChildScrollView(
+        body: Column(
+          children: [
+            const PhaseStepper(currentStep: 4),
+            Expanded(
+              child: stateAsync.when(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
+                error: (e, _) => Center(
+                  child: Text(
+                    'Gagal memuat data: $e',
+                    style: const TextStyle(color: AppColors.error),
+                  ),
+                ),
+                data: (state) => SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,6 +193,9 @@ class SubmitFourthPhasePage extends ConsumerWidget {
               ],
             ),
           ),
+        ),
+      ),
+          ],
         ),
       ),
     );

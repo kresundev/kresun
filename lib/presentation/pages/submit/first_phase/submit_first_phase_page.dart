@@ -7,6 +7,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
 import '../../../../data/models/master_customer_model.dart';
 import 'submit_first_phase_view_model.dart';
+import '../../../../presentation/widgets/phase_stepper.dart';
 
 class SubmitFirstPhasePage extends ConsumerStatefulWidget {
   const SubmitFirstPhasePage({super.key, this.masterCustomer});
@@ -88,7 +89,11 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
         ),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
+      body: Column(
+        children: [
+          const PhaseStepper(currentStep: 1),
+          Expanded(
+            child: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,6 +199,9 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
+          ),
+        ],
       ),
     );
   }
