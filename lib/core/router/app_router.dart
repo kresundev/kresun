@@ -7,6 +7,7 @@ import '../../presentation/pages/register_referral/register_referral_page.dart';
 import '../../presentation/pages/root/root_page.dart';
 import '../../presentation/pages/submit/first_phase/submit_first_phase_page.dart';
 import '../../presentation/pages/submit/second_phase/submit_second_phase_page.dart';
+import '../../presentation/pages/submit/third_phase/submit_third_phase_page.dart';
 import '../../data/models/master_customer_model.dart';
 
 final appRouter = GoRouter(
@@ -51,6 +52,12 @@ final appRouter = GoRouter(
           customerName: extra['customerName'] as String,
         );
       },
+    ),
+    GoRoute(
+      path: '/submit-third-phase',
+      builder: (context, state) => SubmitThirdPhasePage(
+        customerId: state.extra as String,
+      ),
     ),
   ],
 );

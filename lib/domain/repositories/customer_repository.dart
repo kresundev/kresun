@@ -23,4 +23,13 @@ abstract class CustomerRepository {
     required String simulationUrl,
     String? simulationInfo,
   });
+
+  Future<({String name, String? phoneNumber, String? bankName})>
+      getCustomerById(String id);
+
+  Future<void> submitThirdPhase({
+    required String customerId,
+    required bool approval,
+    required String reviewInfo,
+  });
 }

@@ -59,7 +59,10 @@ class _SubmitSecondPhasePageState
             backgroundColor: Color(0xFF10B981),
           ),
         );
-        context.go('/home');
+        final router = GoRouter.of(context);
+        final customerId = widget.customerId;
+        router.go('/home');
+        Future.microtask(() => router.push('/submit-third-phase', extra: customerId));
       } else if (next.errorMessage != null &&
           next.errorMessage != prev?.errorMessage) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -71,17 +74,22 @@ class _SubmitSecondPhasePageState
       }
     });
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F6FA),
-      appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.white,
-        title: const Text(
-          'Submit Data Fase 2',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) context.go('/home');
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xFFF5F6FA),
+        appBar: AppBar(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          title: const Text(
+            'Submit Data Fase 2',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          ),
+          elevation: 0,
         ),
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -179,6 +187,7 @@ class _SubmitSecondPhasePageState
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }

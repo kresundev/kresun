@@ -85,18 +85,21 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
                       );
                     }
                     final customer = state.customers[i];
-                    return _CustomerItem(
-                      customer: customer,
-                      onTap: customer.submitStatus == SubmitStatus.init
-                          ? () => context.push(
-                                '/submit-second-phase',
-                                extra: {
-                                  'customerId': customer.id,
-                                  'customerName': customer.name,
-                                },
-                              )
-                          : null,
-                    );
+                    final onTap = switch (customer.submitStatus) {
+                      SubmitStatus.init => () => context.push(
+                            '/submit-second-phase',
+                            extra: {
+                              'customerId': customer.id,
+                              'customerName': customer.name,
+                            },
+                          ),
+                      SubmitStatus.simulationUploaded => () => context.push(
+                            '/submit-third-phase',
+                            extra: customer.id,
+                          ),
+                      _ => null,
+                    };
+                    return _CustomerItem(customer: customer, onTap: onTap);
                   },
                 );
               },

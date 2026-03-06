@@ -31,6 +31,14 @@ class SupabaseCustomerDataSource {
     return data.map((e) => CustomerModel.fromJson(e)).toList();
   }
 
+  Future<Map<String, dynamic>> getCustomerById(String id) async {
+    return await _client
+        .from('customers')
+        .select('name, phone_number, bank_name')
+        .eq('id', id)
+        .single();
+  }
+
   Future<String> submitFirstPhase(CustomerModel customer) async {
     try {
       final result = await _client.rpc(
@@ -69,6 +77,22 @@ class SupabaseCustomerDataSource {
       );
     } catch (e) {
       throw ServerException('Gagal memperbarui data: $e');
+    }
+  }
+
+  Future<void> submitThirdPhase({
+    required String customerId,
+    required bool approval,
+    required String reviewInfo,
+  }) async {
+    try {
+      await _client.rpc('submit_third_phase', params: {
+        'id': customerId,
+        'approval': approval,
+        'review_info': reviewInfo,
+      });
+    } catch (e) {
+      throw ServerException('Gagal menyimpan review: $e');
     }
   }
 }

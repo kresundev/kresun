@@ -51,6 +51,28 @@ class CustomerRepositoryImpl implements CustomerRepository {
     simulationUrl: simulationUrl,
     simulationInfo: simulationInfo,
   );
+  @override
+  Future<({String name, String? phoneNumber, String? bankName})>
+      getCustomerById(String id) async {
+    final data = await _customer.getCustomerById(id);
+    return (
+      name: data['name'] as String,
+      phoneNumber: data['phone_number'] as String?,
+      bankName: data['bank_name'] as String?,
+    );
+  }
+
+  @override
+  Future<void> submitThirdPhase({
+    required String customerId,
+    required bool approval,
+    required String reviewInfo,
+  }) =>
+      _customer.submitThirdPhase(
+        customerId: customerId,
+        approval: approval,
+        reviewInfo: reviewInfo,
+      );
 }
 
 @riverpod
