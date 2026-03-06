@@ -93,13 +93,28 @@ class SupabaseCustomerDataSource {
       await _client.rpc(
         'submit_third_phase',
         params: {
-          'id': customerId,
-          'approval': approval,
-          'review_info': reviewInfo,
+          'p_id': customerId,
+          'p_approval': approval,
+          'p_review_info': reviewInfo,
         },
       );
     } catch (e) {
       throw ServerException('Gagal menyimpan review: $e');
+    }
+  }
+
+  Future<void> submitFourthPhase({
+    required String customerId,
+    required String kkUrl,
+    required String akteUrl,
+  }) async {
+    try {
+      await _client.rpc(
+        'submit_fourth_phase',
+        params: {'p_id': customerId, 'p_kk_url': kkUrl, 'p_akte_url': akteUrl},
+      );
+    } catch (e) {
+      throw ServerException('Gagal menyimpan dokumen: $e');
     }
   }
 }

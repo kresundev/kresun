@@ -69,8 +69,8 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
                 return ListView.separated(
                   controller: _scrollController,
                   padding: const EdgeInsets.all(16),
-                  itemCount: state.customers.length +
-                      (state.isLoadingMore ? 1 : 0),
+                  itemCount:
+                      state.customers.length + (state.isLoadingMore ? 1 : 0),
                   separatorBuilder: (_, __) => const SizedBox(height: 8),
                   itemBuilder: (_, i) {
                     if (i == state.customers.length) {
@@ -87,20 +87,27 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
                     final customer = state.customers[i];
                     final onTap = switch (customer.submitStatus) {
                       SubmitStatus.init => () => context.push(
-                            '/submit-second-phase',
-                            extra: {
-                              'customerId': customer.id,
-                              'customerName': customer.name,
-                              'fromCustomerList': true,
-                            },
-                          ),
+                        '/submit-second-phase',
+                        extra: {
+                          'customerId': customer.id,
+                          'customerName': customer.name,
+                          'fromCustomerList': true,
+                        },
+                      ),
                       SubmitStatus.simulationUploaded => () => context.push(
-                            '/submit-third-phase',
-                            extra: {
-                              'customerId': customer.id,
-                              'fromCustomerList': true,
-                            },
-                          ),
+                        '/submit-third-phase',
+                        extra: {
+                          'customerId': customer.id,
+                          'fromCustomerList': true,
+                        },
+                      ),
+                      SubmitStatus.reviewed => () => context.push(
+                        '/submit-fourth-phase',
+                        extra: {
+                          'customerId': customer.id,
+                          'fromCustomerList': true,
+                        },
+                      ),
                       _ => null,
                     };
                     return _CustomerItem(customer: customer, onTap: onTap);
@@ -149,8 +156,10 @@ class _SearchBar extends StatelessWidget {
           ),
           filled: true,
           fillColor: const Color(0xFFF5F6FA),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,
@@ -242,12 +251,12 @@ class _StatusBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (label, color) = switch (status) {
-      SubmitStatus.init               => ('Fase 1', AppColors.primary),
+      SubmitStatus.init => ('Fase 1', AppColors.primary),
       SubmitStatus.simulationUploaded => ('Fase 2', const Color(0xFFF59E0B)),
-      SubmitStatus.reviewed           => ('Ditinjau', const Color(0xFF3B82F6)),
-      SubmitStatus.submitted          => ('Diajukan', const Color(0xFF10B981)),
-      SubmitStatus.closed             => ('Selesai', AppColors.textSecondary),
-      SubmitStatus.rejected           => ('Ditolak', AppColors.error),
+      SubmitStatus.reviewed => ('Fase 3', const Color(0xFF3B82F6)),
+      SubmitStatus.submitted => ('Fase 4', const Color(0xFF10B981)),
+      SubmitStatus.closed => ('Selesai', AppColors.textSecondary),
+      SubmitStatus.rejected => ('Ditolak', AppColors.error),
     };
 
     return Container(

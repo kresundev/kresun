@@ -24,8 +24,7 @@ class SubmitSecondPhasePage extends ConsumerStatefulWidget {
       _SubmitSecondPhasePageState();
 }
 
-class _SubmitSecondPhasePageState
-    extends ConsumerState<SubmitSecondPhasePage> {
+class _SubmitSecondPhasePageState extends ConsumerState<SubmitSecondPhasePage> {
   late final TextEditingController _bankNameController;
   late final TextEditingController _simulationInfoController;
 
@@ -64,10 +63,12 @@ class _SubmitSecondPhasePageState
         final router = GoRouter.of(context);
         final customerId = widget.customerId;
         router.go('/home');
-        Future.microtask(() => router.push('/submit-third-phase', extra: {
-              'customerId': customerId,
-              'fromCustomerList': false,
-            }));
+        Future.microtask(
+          () => router.push(
+            '/submit-third-phase',
+            extra: {'customerId': customerId, 'fromCustomerList': false},
+          ),
+        );
       } else if (next.errorMessage != null &&
           next.errorMessage != prev?.errorMessage) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -90,117 +91,115 @@ class _SubmitSecondPhasePageState
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           title: const Text(
-            'Submit Data Fase 2',
+            'Upload Hasil Simulasi',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           elevation: 0,
         ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Informasi Pengajuan',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-                letterSpacing: -0.3,
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Informasi Pengajuan',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                  letterSpacing: -0.3,
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            const Text(
-              'Lengkapi data bank dan upload simulasi pengajuan',
-              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-            ),
-            const SizedBox(height: 24),
-
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x08000000),
-                    blurRadius: 12,
-                    offset: Offset(0, 4),
-                  ),
-                ],
+              const SizedBox(height: 4),
+              const Text(
+                'Lengkapi data bank dan upload simulasi pengajuan',
+                style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
               ),
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // ── Nasabah info (read-only) ──
-                  const _SectionLabel('DATA NASABAH'),
-                  const SizedBox(height: 12),
-                  _ReadOnlyField(
-                    label: 'Nama Lengkap',
-                    value: widget.customerName,
-                  ),
-                  const SizedBox(height: 20),
+              const SizedBox(height: 24),
 
-                  // ── Bank info ──
-                  const _SectionLabel('INFORMASI BANK'),
-                  const SizedBox(height: 12),
-                  _FormField(
-                    label: 'Nama Bank',
-                    child: _TextField(
-                      controller: _bankNameController,
-                      hintText: 'Masukkan nama bank',
-                      onChanged: vm.onBankNameChanged,
-                      errorText: state.bankNameError,
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x08000000),
+                      blurRadius: 12,
+                      offset: Offset(0, 4),
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                  ],
+                ),
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // ── Nasabah info (read-only) ──
+                    const _SectionLabel('DATA NASABAH'),
+                    const SizedBox(height: 12),
+                    _ReadOnlyField(
+                      label: 'Nama Lengkap',
+                      value: widget.customerName,
+                    ),
+                    const SizedBox(height: 20),
 
-                  // ── Simulation upload ──
-                  const _SectionLabel('UPLOAD SIMULASI'),
-                  const SizedBox(height: 12),
-                  _SimulationUploadCard(
-                    localPath: state.simulationLocalPath,
-                    isPdf: state.isSimulationPdf,
-                    isUploading: state.isSimulationUploading,
-                    isUploaded: state.simulationUrl != null,
-                    onTap: () => _pickSimulation(context, vm),
-                  ),
-                  const SizedBox(height: 20),
+                    // ── Bank info ──
+                    const _SectionLabel('INFORMASI BANK'),
+                    const SizedBox(height: 12),
+                    _FormField(
+                      label: 'Nama Bank',
+                      child: _TextField(
+                        controller: _bankNameController,
+                        hintText: 'Masukkan nama bank',
+                        onChanged: vm.onBankNameChanged,
+                        errorText: state.bankNameError,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
 
-                  // ── Simulation info (optional) ──
-                  const _SectionLabel('CATATAN SIMULASI (OPSIONAL)'),
-                  const SizedBox(height: 12),
-                  _TextField(
-                    controller: _simulationInfoController,
-                    hintText: 'Tambahkan catatan jika diperlukan...',
-                    onChanged: vm.onSimulationInfoChanged,
-                    maxLines: 3,
-                  ),
-                ],
+                    // ── Simulation upload ──
+                    const _SectionLabel('UPLOAD SIMULASI'),
+                    const SizedBox(height: 12),
+                    _SimulationUploadCard(
+                      localPath: state.simulationLocalPath,
+                      isPdf: state.isSimulationPdf,
+                      isUploading: state.isSimulationUploading,
+                      isUploaded: state.simulationUrl != null,
+                      onTap: () => _pickSimulation(context, vm),
+                    ),
+                    const SizedBox(height: 20),
+
+                    // ── Simulation info (optional) ──
+                    const _SectionLabel('CATATAN SIMULASI (OPSIONAL)'),
+                    const SizedBox(height: 12),
+                    _TextField(
+                      controller: _simulationInfoController,
+                      hintText: 'Tambahkan catatan jika diperlukan...',
+                      onChanged: vm.onSimulationInfoChanged,
+                      maxLines: 3,
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            const SizedBox(height: 28),
+              const SizedBox(height: 28),
 
-            _SubmitButton(
-              isEnabled: state.isFormValid &&
-                  !state.isSimulationUploading &&
-                  !state.isSubmitting,
-              isLoading: state.isSubmitting,
-              onPressed: vm.submit,
-            ),
-            const SizedBox(height: 24),
-          ],
+              _SubmitButton(
+                isEnabled:
+                    state.isFormValid &&
+                    !state.isSimulationUploading &&
+                    !state.isSubmitting,
+                isLoading: state.isSubmitting,
+                onPressed: vm.submit,
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
 
-  void _pickSimulation(
-    BuildContext context,
-    SubmitSecondPhaseViewModel vm,
-  ) {
+  void _pickSimulation(BuildContext context, SubmitSecondPhaseViewModel vm) {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -286,10 +285,7 @@ class _ReadOnlyField extends StatelessWidget {
         ),
         child: Text(
           value,
-          style: const TextStyle(
-            fontSize: 14,
-            color: AppColors.textSecondary,
-          ),
+          style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
         ),
       ),
     );
@@ -326,12 +322,16 @@ class _TextField extends StatelessWidget {
           style: const TextStyle(fontSize: 14, color: AppColors.textPrimary),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle:
-                const TextStyle(color: AppColors.textDisabled, fontSize: 14),
+            hintStyle: const TextStyle(
+              color: AppColors.textDisabled,
+              fontSize: 14,
+            ),
             filled: true,
             fillColor: const Color(0xFFF8F8FF),
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 14,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Color(0xFFE8E8F0)),
@@ -356,7 +356,11 @@ class _TextField extends StatelessWidget {
             padding: const EdgeInsets.only(top: 6, left: 4),
             child: Row(
               children: [
-                const Icon(Icons.info_outline, size: 13, color: AppColors.error),
+                const Icon(
+                  Icons.info_outline,
+                  size: 13,
+                  color: AppColors.error,
+                ),
                 const SizedBox(width: 4),
                 Text(
                   errorText!,
@@ -398,8 +402,9 @@ class _SimulationUploadCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color:
-                isUploaded ? const Color(0xFF10B981) : const Color(0xFFE8E8F0),
+            color: isUploaded
+                ? const Color(0xFF10B981)
+                : const Color(0xFFE8E8F0),
             width: isUploaded ? 1.5 : 1,
           ),
         ),

@@ -46,13 +46,28 @@ class _SubmitThirdPhasePageState extends ConsumerState<SubmitThirdPhasePage> {
       final prevStatus = prev?.valueOrNull?.submitStatus;
       final nextStatus = next.valueOrNull?.submitStatus;
 
-      if (nextStatus != null &&
-          nextStatus != SubmitStatus.simulationUploaded &&
+      if (nextStatus == SubmitStatus.reviewed &&
           prevStatus == SubmitStatus.simulationUploaded) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Review berhasil disimpan!'),
+            content: Text('Pengajuan disetujui!'),
             backgroundColor: Color(0xFF10B981),
+          ),
+        );
+        final router = GoRouter.of(context);
+        final id = widget.customerId;
+        final fromList = widget.fromCustomerList;
+        router.go('/home');
+        Future.microtask(() => router.push('/submit-fourth-phase', extra: {
+              'customerId': id,
+              'fromCustomerList': fromList,
+            }));
+      } else if (nextStatus == SubmitStatus.rejected &&
+          prevStatus == SubmitStatus.simulationUploaded) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Pengajuan ditolak.'),
+            backgroundColor: Color(0xFF6B7280),
           ),
         );
         context.go('/home');

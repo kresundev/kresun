@@ -32,4 +32,10 @@ abstract class CustomerRepository {
     required bool approval,
     required String reviewInfo,
   });
+
+  Future<void> submitFourthPhase({
+    required String customerId,
+    required String kkUrl,
+    required String akteUrl,
+  });
 }

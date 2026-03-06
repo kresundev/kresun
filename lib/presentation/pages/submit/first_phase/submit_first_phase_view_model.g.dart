@@ -7,7 +7,7 @@ part of 'submit_first_phase_view_model.dart';
 // **************************************************************************
 
 String _$submitFirstPhaseViewModelHash() =>
-    r'62804a5f9146a3a29cdce5a763080dee5876d587';
+    r'60a5afd6bb72758af44d7b01e547e1ca7a2030c8';
 
 /// Copied from Dart SDK
 class _SystemHash {

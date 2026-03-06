@@ -73,6 +73,18 @@ class CustomerRepositoryImpl implements CustomerRepository {
         approval: approval,
         reviewInfo: reviewInfo,
       );
+
+  @override
+  Future<void> submitFourthPhase({
+    required String customerId,
+    required String kkUrl,
+    required String akteUrl,
+  }) =>
+      _customer.submitFourthPhase(
+        customerId: customerId,
+        kkUrl: kkUrl,
+        akteUrl: akteUrl,
+      );
 }
 
 @riverpod
