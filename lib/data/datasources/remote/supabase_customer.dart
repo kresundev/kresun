@@ -49,7 +49,7 @@ class SupabaseCustomerDataSource {
           'kk_url': customer.skUrl,
           if (customer.phoneNumber != null)
             'phone_number': customer.phoneNumber,
-          if (customer.masterCustomerId.isNotEmpty)
+          if (customer.masterCustomerId != null)
             'master_customer_id': customer.masterCustomerId,
         },
       );
@@ -86,11 +86,14 @@ class SupabaseCustomerDataSource {
     required String reviewInfo,
   }) async {
     try {
-      await _client.rpc('submit_third_phase', params: {
-        'id': customerId,
-        'approval': approval,
-        'review_info': reviewInfo,
-      });
+      await _client.rpc(
+        'submit_third_phase',
+        params: {
+          'id': customerId,
+          'approval': approval,
+          'review_info': reviewInfo,
+        },
+      );
     } catch (e) {
       throw ServerException('Gagal menyimpan review: $e');
     }

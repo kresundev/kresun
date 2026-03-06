@@ -278,6 +278,7 @@ class _SubmitDataSheet extends StatelessWidget {
             title: 'Input Manual',
             onTap: () {
               Navigator.pop(context);
+              context.push('/submit-first-phase', extra: null);
             },
           ),
           SizedBox(height: MediaQuery.of(context).padding.bottom + 20),

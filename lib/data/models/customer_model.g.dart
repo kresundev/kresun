@@ -11,7 +11,7 @@ _CustomerModel _$CustomerModelFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       createdBy: json['created_by'] as String,
-      masterCustomerId: json['master_customer_id'] as String,
+      masterCustomerId: json['master_customer_id'] as String?,
       submitStatus: $enumDecode(_$SubmitStatusEnumMap, json['submit_status']),
       createdAt: json['created_at'] == null
           ? null

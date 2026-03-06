@@ -22,7 +22,7 @@ abstract class CustomerModel with _$CustomerModel {
     required String id,
     required String name,
     @JsonKey(name: 'created_by') required String createdBy,
-    @JsonKey(name: 'master_customer_id') required String masterCustomerId,
+    @JsonKey(name: 'master_customer_id') String? masterCustomerId,
     @JsonKey(name: 'submit_status') required SubmitStatus submitStatus,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'ktp_url') String? ktpUrl,
