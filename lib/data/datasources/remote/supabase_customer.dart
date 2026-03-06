@@ -34,7 +34,7 @@ class SupabaseCustomerDataSource {
   Future<Map<String, dynamic>> getCustomerById(String id) async {
     return await _client
         .from('customers')
-        .select('name, phone_number, bank_name, review_info')
+        .select('name, phone_number, bank_name, review_info, submit_status, closed_proof_rejected_reason')
         .eq('id', id)
         .single();
   }
@@ -100,6 +100,25 @@ class SupabaseCustomerDataSource {
       );
     } catch (e) {
       throw ServerException('Gagal menyimpan review: $e');
+    }
+  }
+
+  Future<void> submitFifthPhase({
+    required String customerId,
+    required String closedProofUrl,
+    String? closedProofInfo,
+  }) async {
+    try {
+      await _client.rpc(
+        'submit_fifth_phase',
+        params: {
+          'p_id': customerId,
+          'p_closed_proof_url': closedProofUrl,
+          'p_closed_proof_info': closedProofInfo ?? '',
+        },
+      );
+    } catch (e) {
+      throw ServerException('Gagal menyimpan bukti: $e');
     }
   }
 

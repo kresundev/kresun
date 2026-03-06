@@ -24,8 +24,20 @@ abstract class CustomerRepository {
     String? simulationInfo,
   });
 
-  Future<({String name, String? phoneNumber, String? bankName, String? reviewInfo})>
-      getCustomerById(String id);
+  Future<({
+    String name,
+    String? phoneNumber,
+    String? bankName,
+    String? reviewInfo,
+    SubmitStatus submitStatus,
+    String? closedProofRejectedReason,
+  })> getCustomerById(String id);
+
+  Future<void> submitFifthPhase({
+    required String customerId,
+    required String closedProofUrl,
+    String? closedProofInfo,
+  });
 
   Future<void> submitThirdPhase({
     required String customerId,

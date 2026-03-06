@@ -115,7 +115,22 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
                           'fromCustomerList': true,
                         },
                       ),
-                      _ => null,
+                      SubmitStatus.submitted => () => context.push(
+                        '/submit-fifth-phase',
+                        extra: {
+                          'customerId': customer.id,
+                          'fromCustomerList': true,
+                        },
+                      ),
+                      SubmitStatus.closed ||
+                      SubmitStatus.closedProofPending ||
+                      SubmitStatus.closedProofRejected => () => context.push(
+                        '/submit-closed',
+                        extra: {
+                          'customerId': customer.id,
+                          'fromCustomerList': true,
+                        },
+                      ),
                     };
                     return _CustomerItem(customer: customer, onTap: onTap);
                   },
@@ -303,12 +318,12 @@ class _StatusBadge extends StatelessWidget {
       SubmitStatus.closed => ('Selesai', AppColors.textSecondary),
       SubmitStatus.rejected => ('Ditolak', AppColors.error),
       SubmitStatus.closedProofPending => (
-        'Pengajuan Komisi Ditolak',
-        AppColors.error,
+        'Menunggu Approval Admin',
+        const Color(0xFFF59E0B),
       ),
       SubmitStatus.closedProofRejected => (
-        'Menunggu Approval Admin',
-        const Color(0xFF10B981),
+        'Pengajuan Komisi Ditolak',
+        AppColors.error,
       ),
     };
 

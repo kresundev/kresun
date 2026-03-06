@@ -52,14 +52,27 @@ class CustomerRepositoryImpl implements CustomerRepository {
     simulationInfo: simulationInfo,
   );
   @override
-  Future<({String name, String? phoneNumber, String? bankName, String? reviewInfo})>
-      getCustomerById(String id) async {
+  Future<({
+    String name,
+    String? phoneNumber,
+    String? bankName,
+    String? reviewInfo,
+    SubmitStatus submitStatus,
+    String? closedProofRejectedReason,
+  })> getCustomerById(String id) async {
     final data = await _customer.getCustomerById(id);
+    final statusStr = data['submit_status'] as String;
+    final submitStatus = SubmitStatus.values.firstWhere(
+      (s) => s.value == statusStr,
+      orElse: () => SubmitStatus.init,
+    );
     return (
       name: data['name'] as String,
       phoneNumber: data['phone_number'] as String?,
       bankName: data['bank_name'] as String?,
       reviewInfo: data['review_info'] as String?,
+      submitStatus: submitStatus,
+      closedProofRejectedReason: data['closed_proof_rejected_reason'] as String?,
     );
   }
 
@@ -73,6 +86,18 @@ class CustomerRepositoryImpl implements CustomerRepository {
         customerId: customerId,
         approval: approval,
         reviewInfo: reviewInfo,
+      );
+
+  @override
+  Future<void> submitFifthPhase({
+    required String customerId,
+    required String closedProofUrl,
+    String? closedProofInfo,
+  }) =>
+      _customer.submitFifthPhase(
+        customerId: customerId,
+        closedProofUrl: closedProofUrl,
+        closedProofInfo: closedProofInfo,
       );
 
   @override

@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
-import 'submit_fourth_phase_view_model.dart';
+import 'submit_fifth_phase_page_view_model.dart';
 
-class SubmitFourthPhasePage extends ConsumerWidget {
-  const SubmitFourthPhasePage({
+class SubmitFifthPhasePage extends ConsumerStatefulWidget {
+  const SubmitFifthPhasePage({
     super.key,
     required this.customerId,
     this.fromCustomerList = false,
@@ -18,8 +18,28 @@ class SubmitFourthPhasePage extends ConsumerWidget {
   final bool fromCustomerList;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final provider = submitFourthPhaseViewModelProvider(customerId);
+  ConsumerState<SubmitFifthPhasePage> createState() =>
+      _SubmitFifthPhasePageState();
+}
+
+class _SubmitFifthPhasePageState extends ConsumerState<SubmitFifthPhasePage> {
+  late final TextEditingController _infoController;
+
+  @override
+  void initState() {
+    super.initState();
+    _infoController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _infoController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final provider = submitFifthPhasePageViewModelProvider(widget.customerId);
     final stateAsync = ref.watch(provider);
     final vm = ref.read(provider.notifier);
 
@@ -27,19 +47,21 @@ class SubmitFourthPhasePage extends ConsumerWidget {
       final prevStatus = prev?.valueOrNull?.submitStatus;
       final nextStatus = next.valueOrNull?.submitStatus;
 
-      if (nextStatus == SubmitStatus.submitted &&
-          prevStatus != SubmitStatus.submitted) {
+      if (nextStatus == SubmitStatus.closedProofPending &&
+          prevStatus != SubmitStatus.closedProofPending) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Dokumen berhasil diupload!'),
+            content: Text('Bukti berhasil diupload!'),
             backgroundColor: Color(0xFF10B981),
           ),
         );
         final router = GoRouter.of(context);
+        final id = widget.customerId;
+        final fromList = widget.fromCustomerList;
         router.go('/home');
-        Future.microtask(() => router.push('/submit-fifth-phase', extra: {
-              'customerId': customerId,
-              'fromCustomerList': fromCustomerList,
+        Future.microtask(() => router.push('/submit-closed', extra: {
+              'customerId': id,
+              'fromCustomerList': fromList,
             }));
       }
 
@@ -47,13 +69,16 @@ class SubmitFourthPhasePage extends ConsumerWidget {
       final nextError = next.valueOrNull?.errorMessage;
       if (nextError != null && nextError != prevError) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(nextError), backgroundColor: AppColors.error),
+          SnackBar(
+            content: Text(nextError),
+            backgroundColor: AppColors.error,
+          ),
         );
       }
     });
 
     return PopScope(
-      canPop: fromCustomerList,
+      canPop: widget.fromCustomerList,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) context.go('/home');
       },
@@ -63,15 +88,14 @@ class SubmitFourthPhasePage extends ConsumerWidget {
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
           title: const Text(
-            'Input Data Lanjutan',
+            'Submit Bukti Hasil',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           elevation: 0,
         ),
         body: stateAsync.when(
-          loading: () => const Center(
-            child: CircularProgressIndicator(color: AppColors.primary),
-          ),
+          loading: () =>
+              const Center(child: CircularProgressIndicator(color: AppColors.primary)),
           error: (e, _) => Center(
             child: Text(
               'Gagal memuat data: $e',
@@ -84,7 +108,7 @@ class SubmitFourthPhasePage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Upload Dokumen Tambahan',
+                  'Upload Bukti Pengajuan',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
@@ -94,11 +118,8 @@ class SubmitFourthPhasePage extends ConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 const Text(
-                  'Upload KK dan Akte Kelahiran calon nasabah',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: AppColors.textSecondary,
-                  ),
+                  'Upload bukti hasil simulasi sebagai kelengkapan pengajuan',
+                  style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 24),
 
@@ -136,39 +157,56 @@ class SubmitFourthPhasePage extends ConsumerWidget {
 
                 const SizedBox(height: 16),
 
-                // ── Upload Cards ──
+                // ── Upload & Info Card ──
                 _Card(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _SectionLabel('UPLOAD DOKUMEN'),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _UploadCard(
-                              label: 'Upload KK',
-                              localPath: state.kkLocalPath,
-                              isPdf: state.isKkPdf,
-                              isUploading: state.isKkUploading,
-                              isUploaded: state.kkUrl != null,
-                              onTap: () =>
-                                  _pickFile(context, UploadField.kk, vm),
+                      const _SectionLabel('BUKTI HASIL SIMULASI'),
+                      const SizedBox(height: 12),
+                      _UploadCard(
+                        localPath: state.closedProofLocalPath,
+                        isPdf: state.isClosedProofPdf,
+                        isUploading: state.isClosedProofUploading,
+                        isUploaded: state.closedProofUrl != null,
+                        onTap: () => _pickFile(context, vm),
+                      ),
+                      const SizedBox(height: 20),
+                      const _SectionLabel('KETERANGAN (OPSIONAL)'),
+                      const SizedBox(height: 12),
+                      TextField(
+                        controller: _infoController,
+                        onChanged: vm.onClosedProofInfoChanged,
+                        maxLines: 3,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.textPrimary,
+                        ),
+                        decoration: InputDecoration(
+                          hintText: 'Tambahkan keterangan jika diperlukan...',
+                          hintStyle: const TextStyle(
+                            color: AppColors.textDisabled,
+                            fontSize: 14,
+                          ),
+                          filled: true,
+                          fillColor: const Color(0xFFF8F8FF),
+                          contentPadding: const EdgeInsets.all(14),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE8E8F0)),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(color: Color(0xFFE8E8F0)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: const BorderSide(
+                              color: AppColors.primary,
+                              width: 1.5,
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _UploadCard(
-                              label: 'Akte Kelahiran',
-                              localPath: state.akteLocalPath,
-                              isPdf: state.isAktePdf,
-                              isUploading: state.isAkteUploading,
-                              isUploaded: state.akteUrl != null,
-                              onTap: () =>
-                                  _pickFile(context, UploadField.akte, vm),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
@@ -177,9 +215,8 @@ class SubmitFourthPhasePage extends ConsumerWidget {
                 const SizedBox(height: 28),
 
                 _SubmitButton(
-                  isEnabled:
-                      state.isFormValid &&
-                      !state.isAnyUploading &&
+                  isEnabled: state.isFormValid &&
+                      !state.isClosedProofUploading &&
                       !state.isSubmitting,
                   isLoading: state.isSubmitting,
                   onPressed: vm.submit,
@@ -193,22 +230,18 @@ class SubmitFourthPhasePage extends ConsumerWidget {
     );
   }
 
-  void _pickFile(
-    BuildContext context,
-    UploadField field,
-    SubmitFourthPhaseViewModel vm,
-  ) {
+  void _pickFile(BuildContext context, SubmitFifthPhasePageViewModel vm) {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (_) => _FilePickerSheet(
         onPickImage: (source) {
           Navigator.pop(context);
-          vm.onPickImage(field, source);
+          vm.onPickImage(source);
         },
         onPickPdf: () {
           Navigator.pop(context);
-          vm.onPickPdf(field);
+          vm.onPickPdf();
         },
       ),
     );
@@ -323,7 +356,6 @@ class _InfoRow extends StatelessWidget {
 
 class _UploadCard extends StatelessWidget {
   const _UploadCard({
-    required this.label,
     required this.onTap,
     this.localPath,
     this.isPdf = false,
@@ -331,7 +363,6 @@ class _UploadCard extends StatelessWidget {
     this.isUploaded = false,
   });
 
-  final String label;
   final String? localPath;
   final bool isPdf;
   final bool isUploading;
@@ -342,142 +373,123 @@ class _UploadCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: isUploading ? null : onTap,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: isUploaded
-                  ? const Color(0xFF10B981)
-                  : const Color(0xFFE8E8F0),
-              width: isUploaded ? 1.5 : 1,
-            ),
+      child: Container(
+        width: double.infinity,
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isUploaded ? const Color(0xFF10B981) : const Color(0xFFE8E8F0),
+            width: isUploaded ? 1.5 : 1,
           ),
-          clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: [
-              // Preview or placeholder
-              if (localPath != null && !isPdf)
-                Positioned.fill(
-                  child: Image.file(File(localPath!), fit: BoxFit.cover),
-                )
-              else if (localPath != null && isPdf)
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.picture_as_pdf_rounded,
-                        size: 36,
-                        color: const Color(0xFFE53935).withValues(alpha: 0.8),
-                      ),
-                      const SizedBox(height: 6),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          localPath!.split('/').last,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: AppColors.textSecondary,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              else
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.upload_file_rounded,
-                        size: 34,
-                        color: AppColors.primary.withValues(alpha: 0.6),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        label,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 2),
-                      const Text(
-                        'Klik untuk upload',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-              // Uploading overlay
-              if (isUploading)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withValues(alpha: 0.4),
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2.5,
-                      ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            if (localPath != null && !isPdf)
+              Positioned.fill(
+                child: Image.file(File(localPath!), fit: BoxFit.cover),
+              )
+            else if (localPath != null && isPdf)
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.picture_as_pdf_rounded,
+                      size: 48,
+                      color: const Color(0xFFE53935).withValues(alpha: 0.8),
                     ),
-                  ),
-                ),
-
-              // Uploaded checkmark badge
-              if (isUploaded && !isUploading)
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    width: 24,
-                    height: 24,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF10B981),
-                      shape: BoxShape.circle,
+                    const SizedBox(height: 8),
+                    Text(
+                      localPath!.split('/').last,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    child: const Icon(
-                      Icons.check_rounded,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                  ),
+                  ],
                 ),
-
-              // Re-upload bar
-              if (localPath != null && !isUploading)
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    color: Colors.black.withValues(alpha: 0.45),
-                    child: const Text(
-                      'Ganti file',
-                      textAlign: TextAlign.center,
+              )
+            else
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.upload_file_rounded,
+                      size: 40,
+                      color: AppColors.primary.withValues(alpha: 0.6),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Bukti Hasil Simulasi',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
                       ),
+                    ),
+                    const SizedBox(height: 2),
+                    const Text(
+                      'Foto, galeri, atau file PDF',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            if (isUploading)
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withValues(alpha: 0.4),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2.5,
                     ),
                   ),
                 ),
-            ],
-          ),
+              ),
+            if (isUploaded && !isUploading)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF10B981),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.check_rounded, color: Colors.white, size: 14),
+                ),
+              ),
+            if (localPath != null && !isUploading)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  color: Colors.black.withValues(alpha: 0.45),
+                  child: const Text(
+                    'Ganti file',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );
@@ -651,7 +663,7 @@ class _SubmitButton extends StatelessWidget {
                   ),
                 )
               : const Text(
-                  'Submit Dokumen',
+                  'Submit Bukti',
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
