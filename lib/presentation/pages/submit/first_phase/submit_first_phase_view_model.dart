@@ -78,7 +78,7 @@ class SubmitFirstPhaseViewModel extends _$SubmitFirstPhaseViewModel {
     }
   }
 
-  Future<void> submit({required String createdBy}) async {
+  Future<void> submit() async {
     if (!state.isFormValid) return;
 
     state = state.copyWith(errorMessage: null, isSubmitting: true);
@@ -87,7 +87,7 @@ class SubmitFirstPhaseViewModel extends _$SubmitFirstPhaseViewModel {
       final customer = CustomerModel(
         id: '',
         name: state.name,
-        createdBy: createdBy,
+        createdBy: '',
         masterCustomerId: _masterCustomer?.id ?? '',
         submitStatus: SubmitStatus.init,
         phoneNumber: _masterCustomer?.phoneNumber,
@@ -95,10 +95,13 @@ class SubmitFirstPhaseViewModel extends _$SubmitFirstPhaseViewModel {
         skUrl: state.skUrl,
       );
 
-      await ref.read(customerRepositoryProvider).insertCustomer(customer);
+      final customerId = await ref
+          .read(customerRepositoryProvider)
+          .submitFirstPhase(customer);
       state = state.copyWith(
         submitStatus: SubmitStatus.submitted,
         isSubmitting: false,
+        submittedCustomerId: customerId,
       );
     } catch (e) {
       state = state.copyWith(isSubmitting: false, errorMessage: e.toString());

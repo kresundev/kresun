@@ -16,16 +16,41 @@ class CustomerRepositoryImpl implements CustomerRepository {
   const CustomerRepositoryImpl(this._storage, this._customer);
 
   @override
+  Future<List<CustomerModel>> getCustomers({
+    required int page,
+    required int pageSize,
+    String? query,
+    String? createdBy,
+  }) => _customer.getCustomers(
+    page: page,
+    pageSize: pageSize,
+    query: query,
+    createdBy: createdBy,
+  );
+
+  @override
   Future<String> uploadFile({
     required String bucket,
     required String path,
     required XFile file,
-  }) =>
-      _storage.uploadFile(bucket: bucket, path: path, file: file);
+  }) => _storage.uploadFile(bucket: bucket, path: path, file: file);
 
   @override
-  Future<void> insertCustomer(CustomerModel customer) =>
-      _customer.insertCustomer(customer);
+  Future<String> submitFirstPhase(CustomerModel customer) =>
+      _customer.submitFirstPhase(customer);
+
+  @override
+  Future<void> submitSecondPhase({
+    required String customerId,
+    required String bankName,
+    required String simulationUrl,
+    String? simulationInfo,
+  }) => _customer.submitSecondPhase(
+    customerId: customerId,
+    bankName: bankName,
+    simulationUrl: simulationUrl,
+    simulationInfo: simulationInfo,
+  );
 }
 
 @riverpod

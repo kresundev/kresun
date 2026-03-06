@@ -19,6 +19,7 @@ abstract class SubmitFirstPhaseState with _$SubmitFirstPhaseState {
     @Default(false) bool isSkUploading,
     @Default(SubmitStatus.init) SubmitStatus submitStatus,
     @Default(false) bool isSubmitting,
+    String? submittedCustomerId,
     String? errorMessage,
   }) = _SubmitFirstPhaseState;
 

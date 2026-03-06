@@ -457,7 +457,7 @@ class _QuickAccessMenu extends StatelessWidget {
             iconBg: const Color(0xFFFEF3C7),
             title: 'Status Calon Nasabah',
             subtitle: 'Cek status pengajuan',
-            onTap: () {},
+            onTap: () => context.push('/customers'),
           ),
           const Divider(height: 1, indent: 72, endIndent: 20),
           _MenuItem(

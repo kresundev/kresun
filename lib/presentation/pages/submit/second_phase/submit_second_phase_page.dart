@@ -5,61 +5,61 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/customer_model.dart';
-import '../../../../data/models/master_customer_model.dart';
-import 'submit_first_phase_view_model.dart';
+import 'submit_second_phase_view_model.dart';
 
-class SubmitFirstPhasePage extends ConsumerStatefulWidget {
-  const SubmitFirstPhasePage({super.key, this.masterCustomer});
+class SubmitSecondPhasePage extends ConsumerStatefulWidget {
+  const SubmitSecondPhasePage({
+    super.key,
+    required this.customerId,
+    required this.customerName,
+  });
 
-  final MasterCustomerModel? masterCustomer;
+  final String customerId;
+  final String customerName;
 
   @override
-  ConsumerState<SubmitFirstPhasePage> createState() =>
-      _SubmitFirstPhasePageState();
+  ConsumerState<SubmitSecondPhasePage> createState() =>
+      _SubmitSecondPhasePageState();
 }
 
-class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
-  late final TextEditingController _nameController;
+class _SubmitSecondPhasePageState
+    extends ConsumerState<SubmitSecondPhasePage> {
+  late final TextEditingController _bankNameController;
+  late final TextEditingController _simulationInfoController;
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(
-      text: widget.masterCustomer?.name ?? '',
-    );
+    _bankNameController = TextEditingController();
+    _simulationInfoController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
+    _bankNameController.dispose();
+    _simulationInfoController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = submitFirstPhaseViewModelProvider(widget.masterCustomer);
+    final provider = submitSecondPhaseViewModelProvider(
+      widget.customerId,
+      widget.customerName,
+    );
     final state = ref.watch(provider);
     final vm = ref.read(provider.notifier);
 
     ref.listen(provider, (prev, next) {
-      if (next.submitStatus == SubmitStatus.submitted &&
-          prev?.submitStatus != SubmitStatus.submitted) {
+      if (next.submitStatus == SubmitStatus.simulationUploaded &&
+          prev?.submitStatus != SubmitStatus.simulationUploaded) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Fase 1 berhasil disimpan!'),
+            content: Text('Data fase 2 berhasil disimpan!'),
             backgroundColor: Color(0xFF10B981),
           ),
         );
-        final router = GoRouter.of(context);
-        final customerId = next.submittedCustomerId!;
-        final customerName = next.name;
-        router.go('/home');
-        Future.microtask(() {
-          router.push('/submit-second-phase', extra: {
-            'customerId': customerId,
-            'customerName': customerName,
-          });
-        });
+        context.go('/home');
       } else if (next.errorMessage != null &&
           next.errorMessage != prev?.errorMessage) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -77,7 +77,7 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         title: const Text(
-          'Submit Data Calon Nasabah',
+          'Submit Data Fase 2',
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         elevation: 0,
@@ -88,7 +88,7 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Upload Dokumen Calon Nasabah',
+              'Informasi Pengajuan',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -98,12 +98,11 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
             ),
             const SizedBox(height: 4),
             const Text(
-              'Lengkapi data dan upload KTP serta SK calon nasabah',
+              'Lengkapi data bank dan upload simulasi pengajuan',
               style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 24),
 
-            // ── Form Card ──────────────────────────────────────────────────
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -120,45 +119,49 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // DATA CALON NASABAH
-                  const _SectionLabel('DATA CALON NASABAH'),
+                  // ── Nasabah info (read-only) ──
+                  const _SectionLabel('DATA NASABAH'),
+                  const SizedBox(height: 12),
+                  _ReadOnlyField(
+                    label: 'Nama Lengkap',
+                    value: widget.customerName,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // ── Bank info ──
+                  const _SectionLabel('INFORMASI BANK'),
                   const SizedBox(height: 12),
                   _FormField(
-                    label: 'Nama Lengkap',
-                    child: _NameField(
-                      controller: _nameController,
-                      readOnly: state.isNameReadOnly,
-                      onChanged: vm.onNameChanged,
-                      errorText: state.nameError,
+                    label: 'Nama Bank',
+                    child: _TextField(
+                      controller: _bankNameController,
+                      hintText: 'Masukkan nama bank',
+                      onChanged: vm.onBankNameChanged,
+                      errorText: state.bankNameError,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 20),
 
-                  // UPLOAD DOKUMEN
-                  const _SectionLabel('UPLOAD DOKUMEN'),
+                  // ── Simulation upload ──
+                  const _SectionLabel('UPLOAD SIMULASI'),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _UploadCard(
-                          label: 'Upload KTP',
-                          localPath: state.ktpLocalPath,
-                          isUploading: state.isKtpUploading,
-                          isUploaded: state.ktpUrl != null,
-                          onTap: () => _pickImage(context, UploadField.ktp, vm),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _UploadCard(
-                          label: 'Upload SK',
-                          localPath: state.skLocalPath,
-                          isUploading: state.isSkUploading,
-                          isUploaded: state.skUrl != null,
-                          onTap: () => _pickImage(context, UploadField.sk, vm),
-                        ),
-                      ),
-                    ],
+                  _SimulationUploadCard(
+                    localPath: state.simulationLocalPath,
+                    isPdf: state.isSimulationPdf,
+                    isUploading: state.isSimulationUploading,
+                    isUploaded: state.simulationUrl != null,
+                    onTap: () => _pickSimulation(context, vm),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // ── Simulation info (optional) ──
+                  const _SectionLabel('CATATAN SIMULASI (OPSIONAL)'),
+                  const SizedBox(height: 12),
+                  _TextField(
+                    controller: _simulationInfoController,
+                    hintText: 'Tambahkan catatan jika diperlukan...',
+                    onChanged: vm.onSimulationInfoChanged,
+                    maxLines: 3,
                   ),
                 ],
               ),
@@ -168,7 +171,7 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
 
             _SubmitButton(
               isEnabled: state.isFormValid &&
-                  !state.isAnyUploading &&
+                  !state.isSimulationUploading &&
                   !state.isSubmitting,
               isLoading: state.isSubmitting,
               onPressed: vm.submit,
@@ -180,18 +183,21 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
     );
   }
 
-  void _pickImage(
+  void _pickSimulation(
     BuildContext context,
-    UploadField field,
-    SubmitFirstPhaseViewModel vm,
+    SubmitSecondPhaseViewModel vm,
   ) {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => _ImagePickerSheet(
-        onPick: (source) {
+      builder: (_) => _SimulationPickerSheet(
+        onPickImage: (source) {
           Navigator.pop(context);
-          vm.onPickImage(field, source);
+          vm.onPickImage(source);
+        },
+        onPickPdf: () {
+          Navigator.pop(context);
+          vm.onPickPdf();
         },
       ),
     );
@@ -245,20 +251,53 @@ class _FormField extends StatelessWidget {
   }
 }
 
-// ─── Name Field ──────────────────────────────────────────────────────────────
+// ─── Read-only Field ─────────────────────────────────────────────────────────
 
-class _NameField extends StatelessWidget {
-  const _NameField({
+class _ReadOnlyField extends StatelessWidget {
+  const _ReadOnlyField({required this.label, required this.value});
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return _FormField(
+      label: label,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF5F6FA),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: const Color(0xFFE8E8F0)),
+        ),
+        child: Text(
+          value,
+          style: const TextStyle(
+            fontSize: 14,
+            color: AppColors.textSecondary,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Text Field ──────────────────────────────────────────────────────────────
+
+class _TextField extends StatelessWidget {
+  const _TextField({
     required this.controller,
-    required this.readOnly,
+    required this.hintText,
     required this.onChanged,
     this.errorText,
+    this.maxLines = 1,
   });
 
   final TextEditingController controller;
-  final bool readOnly;
+  final String hintText;
   final ValueChanged<String> onChanged;
   final String? errorText;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -269,19 +308,14 @@ class _NameField extends StatelessWidget {
         TextField(
           controller: controller,
           onChanged: onChanged,
-          readOnly: readOnly,
-          style: TextStyle(
-            fontSize: 14,
-            color:
-                readOnly ? AppColors.textSecondary : AppColors.textPrimary,
-          ),
+          maxLines: maxLines,
+          style: const TextStyle(fontSize: 14, color: AppColors.textPrimary),
           decoration: InputDecoration(
-            hintText: 'Masukkan nama lengkap calon nasabah',
+            hintText: hintText,
             hintStyle:
                 const TextStyle(color: AppColors.textDisabled, fontSize: 14),
             filled: true,
-            fillColor:
-                readOnly ? const Color(0xFFF5F6FA) : const Color(0xFFF8F8FF),
+            fillColor: const Color(0xFFF8F8FF),
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             border: OutlineInputBorder(
@@ -322,19 +356,19 @@ class _NameField extends StatelessWidget {
   }
 }
 
-// ─── Upload Card ─────────────────────────────────────────────────────────────
+// ─── Simulation Upload Card ───────────────────────────────────────────────────
 
-class _UploadCard extends StatelessWidget {
-  const _UploadCard({
-    required this.label,
+class _SimulationUploadCard extends StatelessWidget {
+  const _SimulationUploadCard({
     required this.onTap,
     this.localPath,
+    this.isPdf = false,
     this.isUploading = false,
     this.isUploaded = false,
   });
 
-  final String label;
   final String? localPath;
+  final bool isPdf;
   final bool isUploading;
   final bool isUploaded;
   final VoidCallback onTap;
@@ -343,129 +377,151 @@ class _UploadCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: isUploading ? null : onTap,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: isUploaded
-                  ? const Color(0xFF10B981)
-                  : const Color(0xFFE8E8F0),
-              width: isUploaded ? 1.5 : 1,
-            ),
+      child: Container(
+        width: double.infinity,
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color:
+                isUploaded ? const Color(0xFF10B981) : const Color(0xFFE8E8F0),
+            width: isUploaded ? 1.5 : 1,
           ),
-          clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: [
-              // Image preview or placeholder
-              if (localPath != null)
-                Positioned.fill(
-                  child: Image.file(
-                    File(localPath!),
-                    fit: BoxFit.cover,
-                  ),
-                )
-              else
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.upload_file_rounded,
-                        size: 36,
-                        color: AppColors.primary.withValues(alpha: 0.6),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        label,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      const Text(
-                        'Klik untuk upload',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-              // Uploading overlay
-              if (isUploading)
-                Positioned.fill(
-                  child: Container(
-                    color: Colors.black.withValues(alpha: 0.4),
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2.5,
-                      ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: [
+            // Preview or placeholder
+            if (localPath != null && !isPdf)
+              Positioned.fill(
+                child: Image.file(File(localPath!), fit: BoxFit.cover),
+              )
+            else if (localPath != null && isPdf)
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.picture_as_pdf_rounded,
+                      size: 48,
+                      color: const Color(0xFFE53935).withValues(alpha: 0.8),
                     ),
-                  ),
-                ),
-
-              // Uploaded checkmark badge
-              if (isUploaded && !isUploading)
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: Container(
-                    width: 24,
-                    height: 24,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF10B981),
-                      shape: BoxShape.circle,
+                    const SizedBox(height: 8),
+                    Text(
+                      localPath!.split('/').last,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    child: const Icon(
-                      Icons.check_rounded,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                  ),
+                  ],
                 ),
-
-              // Re-upload overlay when already uploaded
-              if (localPath != null && !isUploading)
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    color: Colors.black.withValues(alpha: 0.45),
-                    child: const Text(
-                      'Ganti foto',
-                      textAlign: TextAlign.center,
+              )
+            else
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.upload_file_rounded,
+                      size: 40,
+                      color: AppColors.primary.withValues(alpha: 0.6),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Upload Simulasi',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
                       ),
+                    ),
+                    const SizedBox(height: 2),
+                    const Text(
+                      'Foto, galeri, atau file PDF',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+            // Uploading overlay
+            if (isUploading)
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withValues(alpha: 0.4),
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2.5,
                     ),
                   ),
                 ),
-            ],
-          ),
+              ),
+
+            // Uploaded checkmark
+            if (isUploaded && !isUploading)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF10B981),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.check_rounded,
+                    color: Colors.white,
+                    size: 14,
+                  ),
+                ),
+              ),
+
+            // Re-upload bar
+            if (localPath != null && !isUploading)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  color: Colors.black.withValues(alpha: 0.45),
+                  child: const Text(
+                    'Ganti file',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+          ],
         ),
       ),
     );
   }
 }
 
-// ─── Image Picker Bottom Sheet ───────────────────────────────────────────────
+// ─── Simulation Picker Sheet ──────────────────────────────────────────────────
 
-class _ImagePickerSheet extends StatelessWidget {
-  const _ImagePickerSheet({required this.onPick});
+class _SimulationPickerSheet extends StatelessWidget {
+  const _SimulationPickerSheet({
+    required this.onPickImage,
+    required this.onPickPdf,
+  });
 
-  final ValueChanged<ImageSource> onPick;
+  final ValueChanged<ImageSource> onPickImage;
+  final VoidCallback onPickPdf;
 
   @override
   Widget build(BuildContext context) {
@@ -490,7 +546,7 @@ class _ImagePickerSheet extends StatelessWidget {
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Pilih Sumber Foto',
+              'Pilih Sumber File',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
@@ -505,7 +561,7 @@ class _ImagePickerSheet extends StatelessWidget {
             iconColor: AppColors.primary,
             iconBg: const Color(0xFFEEEFFF),
             title: 'Kamera',
-            onTap: () => onPick(ImageSource.camera),
+            onTap: () => onPickImage(ImageSource.camera),
           ),
           const SizedBox(height: 10),
           _PickerOption(
@@ -513,7 +569,15 @@ class _ImagePickerSheet extends StatelessWidget {
             iconColor: const Color(0xFF10B981),
             iconBg: const Color(0xFFD1FAE5),
             title: 'Galeri',
-            onTap: () => onPick(ImageSource.gallery),
+            onTap: () => onPickImage(ImageSource.gallery),
+          ),
+          const SizedBox(height: 10),
+          _PickerOption(
+            icon: Icons.picture_as_pdf_rounded,
+            iconColor: const Color(0xFFE53935),
+            iconBg: const Color(0xFFFFEBEE),
+            title: 'File PDF',
+            onTap: onPickPdf,
           ),
           SizedBox(height: MediaQuery.of(context).padding.bottom + 20),
         ],

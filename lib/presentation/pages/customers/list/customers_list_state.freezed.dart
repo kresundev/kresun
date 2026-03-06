@@ -1,0 +1,292 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
+// ignore_for_file: type=lint
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
+
+part of 'customers_list_state.dart';
+
+// **************************************************************************
+// FreezedGenerator
+// **************************************************************************
+
+// dart format off
+T _$identity<T>(T value) => value;
+/// @nodoc
+mixin _$CustomersListState {
+
+ List<CustomerModel> get customers; String get query; int get page; bool get hasMore; bool get isSearching; bool get isLoadingMore;
+/// Create a copy of CustomersListState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CustomersListStateCopyWith<CustomersListState> get copyWith => _$CustomersListStateCopyWithImpl<CustomersListState>(this as CustomersListState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CustomersListState&&const DeepCollectionEquality().equals(other.customers, customers)&&(identical(other.query, query) || other.query == query)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(customers),query,page,hasMore,isSearching,isLoadingMore);
+
+@override
+String toString() {
+  return 'CustomersListState(customers: $customers, query: $query, page: $page, hasMore: $hasMore, isSearching: $isSearching, isLoadingMore: $isLoadingMore)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CustomersListStateCopyWith<$Res>  {
+  factory $CustomersListStateCopyWith(CustomersListState value, $Res Function(CustomersListState) _then) = _$CustomersListStateCopyWithImpl;
+@useResult
+$Res call({
+ List<CustomerModel> customers, String query, int page, bool hasMore, bool isSearching, bool isLoadingMore
+});
+
+
+
+
+}
+/// @nodoc
+class _$CustomersListStateCopyWithImpl<$Res>
+    implements $CustomersListStateCopyWith<$Res> {
+  _$CustomersListStateCopyWithImpl(this._self, this._then);
+
+  final CustomersListState _self;
+  final $Res Function(CustomersListState) _then;
+
+/// Create a copy of CustomersListState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? customers = null,Object? query = null,Object? page = null,Object? hasMore = null,Object? isSearching = null,Object? isLoadingMore = null,}) {
+  return _then(_self.copyWith(
+customers: null == customers ? _self.customers : customers // ignore: cast_nullable_to_non_nullable
+as List<CustomerModel>,query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as String,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isSearching: null == isSearching ? _self.isSearching : isSearching // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CustomersListState].
+extension CustomersListStatePatterns on CustomersListState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CustomersListState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CustomersListState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CustomersListState value)  $default,){
+final _that = this;
+switch (_that) {
+case _CustomersListState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CustomersListState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CustomersListState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<CustomerModel> customers,  String query,  int page,  bool hasMore,  bool isSearching,  bool isLoadingMore)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CustomersListState() when $default != null:
+return $default(_that.customers,_that.query,_that.page,_that.hasMore,_that.isSearching,_that.isLoadingMore);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<CustomerModel> customers,  String query,  int page,  bool hasMore,  bool isSearching,  bool isLoadingMore)  $default,) {final _that = this;
+switch (_that) {
+case _CustomersListState():
+return $default(_that.customers,_that.query,_that.page,_that.hasMore,_that.isSearching,_that.isLoadingMore);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<CustomerModel> customers,  String query,  int page,  bool hasMore,  bool isSearching,  bool isLoadingMore)?  $default,) {final _that = this;
+switch (_that) {
+case _CustomersListState() when $default != null:
+return $default(_that.customers,_that.query,_that.page,_that.hasMore,_that.isSearching,_that.isLoadingMore);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _CustomersListState implements CustomersListState {
+  const _CustomersListState({final  List<CustomerModel> customers = const [], this.query = '', this.page = 0, this.hasMore = true, this.isSearching = false, this.isLoadingMore = false}): _customers = customers;
+  
+
+ final  List<CustomerModel> _customers;
+@override@JsonKey() List<CustomerModel> get customers {
+  if (_customers is EqualUnmodifiableListView) return _customers;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_customers);
+}
+
+@override@JsonKey() final  String query;
+@override@JsonKey() final  int page;
+@override@JsonKey() final  bool hasMore;
+@override@JsonKey() final  bool isSearching;
+@override@JsonKey() final  bool isLoadingMore;
+
+/// Create a copy of CustomersListState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CustomersListStateCopyWith<_CustomersListState> get copyWith => __$CustomersListStateCopyWithImpl<_CustomersListState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CustomersListState&&const DeepCollectionEquality().equals(other._customers, _customers)&&(identical(other.query, query) || other.query == query)&&(identical(other.page, page) || other.page == page)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isSearching, isSearching) || other.isSearching == isSearching)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_customers),query,page,hasMore,isSearching,isLoadingMore);
+
+@override
+String toString() {
+  return 'CustomersListState(customers: $customers, query: $query, page: $page, hasMore: $hasMore, isSearching: $isSearching, isLoadingMore: $isLoadingMore)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CustomersListStateCopyWith<$Res> implements $CustomersListStateCopyWith<$Res> {
+  factory _$CustomersListStateCopyWith(_CustomersListState value, $Res Function(_CustomersListState) _then) = __$CustomersListStateCopyWithImpl;
+@override @useResult
+$Res call({
+ List<CustomerModel> customers, String query, int page, bool hasMore, bool isSearching, bool isLoadingMore
+});
+
+
+
+
+}
+/// @nodoc
+class __$CustomersListStateCopyWithImpl<$Res>
+    implements _$CustomersListStateCopyWith<$Res> {
+  __$CustomersListStateCopyWithImpl(this._self, this._then);
+
+  final _CustomersListState _self;
+  final $Res Function(_CustomersListState) _then;
+
+/// Create a copy of CustomersListState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? customers = null,Object? query = null,Object? page = null,Object? hasMore = null,Object? isSearching = null,Object? isLoadingMore = null,}) {
+  return _then(_CustomersListState(
+customers: null == customers ? _self._customers : customers // ignore: cast_nullable_to_non_nullable
+as List<CustomerModel>,query: null == query ? _self.query : query // ignore: cast_nullable_to_non_nullable
+as String,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,isSearching: null == isSearching ? _self.isSearching : isSearching // ignore: cast_nullable_to_non_nullable
+as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
+// dart format on

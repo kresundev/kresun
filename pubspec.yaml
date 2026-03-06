@@ -30,6 +30,7 @@ dependencies:
 
   # File Picker
   image_picker: ^1.1.2
+  file_picker: ^9.0.0
 
   # Utils
   cupertino_icons: ^1.0.8

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SubmitFirstPhaseState {
 
- String get name; bool get isNameDirty; bool get isNameReadOnly; String? get ktpUrl; String? get ktpLocalPath; bool get isKtpUploading; String? get skUrl; String? get skLocalPath; bool get isSkUploading; SubmitStatus get submitStatus; bool get isSubmitting; String? get errorMessage;
+ String get name; bool get isNameDirty; bool get isNameReadOnly; String? get ktpUrl; String? get ktpLocalPath; bool get isKtpUploading; String? get skUrl; String? get skLocalPath; bool get isSkUploading; SubmitStatus get submitStatus; bool get isSubmitting; String? get submittedCustomerId; String? get errorMessage;
 /// Create a copy of SubmitFirstPhaseState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SubmitFirstPhaseStateCopyWith<SubmitFirstPhaseState> get copyWith => _$SubmitFi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubmitFirstPhaseState&&(identical(other.name, name) || other.name == name)&&(identical(other.isNameDirty, isNameDirty) || other.isNameDirty == isNameDirty)&&(identical(other.isNameReadOnly, isNameReadOnly) || other.isNameReadOnly == isNameReadOnly)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.ktpLocalPath, ktpLocalPath) || other.ktpLocalPath == ktpLocalPath)&&(identical(other.isKtpUploading, isKtpUploading) || other.isKtpUploading == isKtpUploading)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.skLocalPath, skLocalPath) || other.skLocalPath == skLocalPath)&&(identical(other.isSkUploading, isSkUploading) || other.isSkUploading == isSkUploading)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubmitFirstPhaseState&&(identical(other.name, name) || other.name == name)&&(identical(other.isNameDirty, isNameDirty) || other.isNameDirty == isNameDirty)&&(identical(other.isNameReadOnly, isNameReadOnly) || other.isNameReadOnly == isNameReadOnly)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.ktpLocalPath, ktpLocalPath) || other.ktpLocalPath == ktpLocalPath)&&(identical(other.isKtpUploading, isKtpUploading) || other.isKtpUploading == isKtpUploading)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.skLocalPath, skLocalPath) || other.skLocalPath == skLocalPath)&&(identical(other.isSkUploading, isSkUploading) || other.isSkUploading == isSkUploading)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting)&&(identical(other.submittedCustomerId, submittedCustomerId) || other.submittedCustomerId == submittedCustomerId)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,isNameDirty,isNameReadOnly,ktpUrl,ktpLocalPath,isKtpUploading,skUrl,skLocalPath,isSkUploading,submitStatus,isSubmitting,errorMessage);
+int get hashCode => Object.hash(runtimeType,name,isNameDirty,isNameReadOnly,ktpUrl,ktpLocalPath,isKtpUploading,skUrl,skLocalPath,isSkUploading,submitStatus,isSubmitting,submittedCustomerId,errorMessage);
 
 @override
 String toString() {
-  return 'SubmitFirstPhaseState(name: $name, isNameDirty: $isNameDirty, isNameReadOnly: $isNameReadOnly, ktpUrl: $ktpUrl, ktpLocalPath: $ktpLocalPath, isKtpUploading: $isKtpUploading, skUrl: $skUrl, skLocalPath: $skLocalPath, isSkUploading: $isSkUploading, submitStatus: $submitStatus, isSubmitting: $isSubmitting, errorMessage: $errorMessage)';
+  return 'SubmitFirstPhaseState(name: $name, isNameDirty: $isNameDirty, isNameReadOnly: $isNameReadOnly, ktpUrl: $ktpUrl, ktpLocalPath: $ktpLocalPath, isKtpUploading: $isKtpUploading, skUrl: $skUrl, skLocalPath: $skLocalPath, isSkUploading: $isSkUploading, submitStatus: $submitStatus, isSubmitting: $isSubmitting, submittedCustomerId: $submittedCustomerId, errorMessage: $errorMessage)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SubmitFirstPhaseStateCopyWith<$Res>  {
   factory $SubmitFirstPhaseStateCopyWith(SubmitFirstPhaseState value, $Res Function(SubmitFirstPhaseState) _then) = _$SubmitFirstPhaseStateCopyWithImpl;
 @useResult
 $Res call({
- String name, bool isNameDirty, bool isNameReadOnly, String? ktpUrl, String? ktpLocalPath, bool isKtpUploading, String? skUrl, String? skLocalPath, bool isSkUploading, SubmitStatus submitStatus, bool isSubmitting, String? errorMessage
+ String name, bool isNameDirty, bool isNameReadOnly, String? ktpUrl, String? ktpLocalPath, bool isKtpUploading, String? skUrl, String? skLocalPath, bool isSkUploading, SubmitStatus submitStatus, bool isSubmitting, String? submittedCustomerId, String? errorMessage
 });
 
 
@@ -62,7 +62,7 @@ class _$SubmitFirstPhaseStateCopyWithImpl<$Res>
 
 /// Create a copy of SubmitFirstPhaseState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? isNameDirty = null,Object? isNameReadOnly = null,Object? ktpUrl = freezed,Object? ktpLocalPath = freezed,Object? isKtpUploading = null,Object? skUrl = freezed,Object? skLocalPath = freezed,Object? isSkUploading = null,Object? submitStatus = null,Object? isSubmitting = null,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? isNameDirty = null,Object? isNameReadOnly = null,Object? ktpUrl = freezed,Object? ktpLocalPath = freezed,Object? isKtpUploading = null,Object? skUrl = freezed,Object? skLocalPath = freezed,Object? isSkUploading = null,Object? submitStatus = null,Object? isSubmitting = null,Object? submittedCustomerId = freezed,Object? errorMessage = freezed,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,isNameDirty: null == isNameDirty ? _self.isNameDirty : isNameDirty // ignore: cast_nullable_to_non_nullable
@@ -75,7 +75,8 @@ as String?,skLocalPath: freezed == skLocalPath ? _self.skLocalPath : skLocalPath
 as String?,isSkUploading: null == isSkUploading ? _self.isSkUploading : isSkUploading // ignore: cast_nullable_to_non_nullable
 as bool,submitStatus: null == submitStatus ? _self.submitStatus : submitStatus // ignore: cast_nullable_to_non_nullable
 as SubmitStatus,isSubmitting: null == isSubmitting ? _self.isSubmitting : isSubmitting // ignore: cast_nullable_to_non_nullable
-as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as bool,submittedCustomerId: freezed == submittedCustomerId ? _self.submittedCustomerId : submittedCustomerId // ignore: cast_nullable_to_non_nullable
+as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  bool isNameDirty,  bool isNameReadOnly,  String? ktpUrl,  String? ktpLocalPath,  bool isKtpUploading,  String? skUrl,  String? skLocalPath,  bool isSkUploading,  SubmitStatus submitStatus,  bool isSubmitting,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  bool isNameDirty,  bool isNameReadOnly,  String? ktpUrl,  String? ktpLocalPath,  bool isKtpUploading,  String? skUrl,  String? skLocalPath,  bool isSkUploading,  SubmitStatus submitStatus,  bool isSubmitting,  String? submittedCustomerId,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SubmitFirstPhaseState() when $default != null:
-return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_that.ktpLocalPath,_that.isKtpUploading,_that.skUrl,_that.skLocalPath,_that.isSkUploading,_that.submitStatus,_that.isSubmitting,_that.errorMessage);case _:
+return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_that.ktpLocalPath,_that.isKtpUploading,_that.skUrl,_that.skLocalPath,_that.isSkUploading,_that.submitStatus,_that.isSubmitting,_that.submittedCustomerId,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  bool isNameDirty,  bool isNameReadOnly,  String? ktpUrl,  String? ktpLocalPath,  bool isKtpUploading,  String? skUrl,  String? skLocalPath,  bool isSkUploading,  SubmitStatus submitStatus,  bool isSubmitting,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  bool isNameDirty,  bool isNameReadOnly,  String? ktpUrl,  String? ktpLocalPath,  bool isKtpUploading,  String? skUrl,  String? skLocalPath,  bool isSkUploading,  SubmitStatus submitStatus,  bool isSubmitting,  String? submittedCustomerId,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _SubmitFirstPhaseState():
-return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_that.ktpLocalPath,_that.isKtpUploading,_that.skUrl,_that.skLocalPath,_that.isSkUploading,_that.submitStatus,_that.isSubmitting,_that.errorMessage);case _:
+return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_that.ktpLocalPath,_that.isKtpUploading,_that.skUrl,_that.skLocalPath,_that.isSkUploading,_that.submitStatus,_that.isSubmitting,_that.submittedCustomerId,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  bool isNameDirty,  bool isNameReadOnly,  String? ktpUrl,  String? ktpLocalPath,  bool isKtpUploading,  String? skUrl,  String? skLocalPath,  bool isSkUploading,  SubmitStatus submitStatus,  bool isSubmitting,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  bool isNameDirty,  bool isNameReadOnly,  String? ktpUrl,  String? ktpLocalPath,  bool isKtpUploading,  String? skUrl,  String? skLocalPath,  bool isSkUploading,  SubmitStatus submitStatus,  bool isSubmitting,  String? submittedCustomerId,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _SubmitFirstPhaseState() when $default != null:
-return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_that.ktpLocalPath,_that.isKtpUploading,_that.skUrl,_that.skLocalPath,_that.isSkUploading,_that.submitStatus,_that.isSubmitting,_that.errorMessage);case _:
+return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_that.ktpLocalPath,_that.isKtpUploading,_that.skUrl,_that.skLocalPath,_that.isSkUploading,_that.submitStatus,_that.isSubmitting,_that.submittedCustomerId,_that.errorMessage);case _:
   return null;
 
 }
@@ -217,7 +218,7 @@ return $default(_that.name,_that.isNameDirty,_that.isNameReadOnly,_that.ktpUrl,_
 
 
 class _SubmitFirstPhaseState extends SubmitFirstPhaseState {
-  const _SubmitFirstPhaseState({this.name = '', this.isNameDirty = false, this.isNameReadOnly = false, this.ktpUrl, this.ktpLocalPath, this.isKtpUploading = false, this.skUrl, this.skLocalPath, this.isSkUploading = false, this.submitStatus = SubmitStatus.init, this.isSubmitting = false, this.errorMessage}): super._();
+  const _SubmitFirstPhaseState({this.name = '', this.isNameDirty = false, this.isNameReadOnly = false, this.ktpUrl, this.ktpLocalPath, this.isKtpUploading = false, this.skUrl, this.skLocalPath, this.isSkUploading = false, this.submitStatus = SubmitStatus.init, this.isSubmitting = false, this.submittedCustomerId, this.errorMessage}): super._();
   
 
 @override@JsonKey() final  String name;
@@ -231,6 +232,7 @@ class _SubmitFirstPhaseState extends SubmitFirstPhaseState {
 @override@JsonKey() final  bool isSkUploading;
 @override@JsonKey() final  SubmitStatus submitStatus;
 @override@JsonKey() final  bool isSubmitting;
+@override final  String? submittedCustomerId;
 @override final  String? errorMessage;
 
 /// Create a copy of SubmitFirstPhaseState
@@ -243,16 +245,16 @@ _$SubmitFirstPhaseStateCopyWith<_SubmitFirstPhaseState> get copyWith => __$Submi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubmitFirstPhaseState&&(identical(other.name, name) || other.name == name)&&(identical(other.isNameDirty, isNameDirty) || other.isNameDirty == isNameDirty)&&(identical(other.isNameReadOnly, isNameReadOnly) || other.isNameReadOnly == isNameReadOnly)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.ktpLocalPath, ktpLocalPath) || other.ktpLocalPath == ktpLocalPath)&&(identical(other.isKtpUploading, isKtpUploading) || other.isKtpUploading == isKtpUploading)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.skLocalPath, skLocalPath) || other.skLocalPath == skLocalPath)&&(identical(other.isSkUploading, isSkUploading) || other.isSkUploading == isSkUploading)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubmitFirstPhaseState&&(identical(other.name, name) || other.name == name)&&(identical(other.isNameDirty, isNameDirty) || other.isNameDirty == isNameDirty)&&(identical(other.isNameReadOnly, isNameReadOnly) || other.isNameReadOnly == isNameReadOnly)&&(identical(other.ktpUrl, ktpUrl) || other.ktpUrl == ktpUrl)&&(identical(other.ktpLocalPath, ktpLocalPath) || other.ktpLocalPath == ktpLocalPath)&&(identical(other.isKtpUploading, isKtpUploading) || other.isKtpUploading == isKtpUploading)&&(identical(other.skUrl, skUrl) || other.skUrl == skUrl)&&(identical(other.skLocalPath, skLocalPath) || other.skLocalPath == skLocalPath)&&(identical(other.isSkUploading, isSkUploading) || other.isSkUploading == isSkUploading)&&(identical(other.submitStatus, submitStatus) || other.submitStatus == submitStatus)&&(identical(other.isSubmitting, isSubmitting) || other.isSubmitting == isSubmitting)&&(identical(other.submittedCustomerId, submittedCustomerId) || other.submittedCustomerId == submittedCustomerId)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,isNameDirty,isNameReadOnly,ktpUrl,ktpLocalPath,isKtpUploading,skUrl,skLocalPath,isSkUploading,submitStatus,isSubmitting,errorMessage);
+int get hashCode => Object.hash(runtimeType,name,isNameDirty,isNameReadOnly,ktpUrl,ktpLocalPath,isKtpUploading,skUrl,skLocalPath,isSkUploading,submitStatus,isSubmitting,submittedCustomerId,errorMessage);
 
 @override
 String toString() {
-  return 'SubmitFirstPhaseState(name: $name, isNameDirty: $isNameDirty, isNameReadOnly: $isNameReadOnly, ktpUrl: $ktpUrl, ktpLocalPath: $ktpLocalPath, isKtpUploading: $isKtpUploading, skUrl: $skUrl, skLocalPath: $skLocalPath, isSkUploading: $isSkUploading, submitStatus: $submitStatus, isSubmitting: $isSubmitting, errorMessage: $errorMessage)';
+  return 'SubmitFirstPhaseState(name: $name, isNameDirty: $isNameDirty, isNameReadOnly: $isNameReadOnly, ktpUrl: $ktpUrl, ktpLocalPath: $ktpLocalPath, isKtpUploading: $isKtpUploading, skUrl: $skUrl, skLocalPath: $skLocalPath, isSkUploading: $isSkUploading, submitStatus: $submitStatus, isSubmitting: $isSubmitting, submittedCustomerId: $submittedCustomerId, errorMessage: $errorMessage)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$SubmitFirstPhaseStateCopyWith<$Res> implements $SubmitFir
   factory _$SubmitFirstPhaseStateCopyWith(_SubmitFirstPhaseState value, $Res Function(_SubmitFirstPhaseState) _then) = __$SubmitFirstPhaseStateCopyWithImpl;
 @override @useResult
 $Res call({
- String name, bool isNameDirty, bool isNameReadOnly, String? ktpUrl, String? ktpLocalPath, bool isKtpUploading, String? skUrl, String? skLocalPath, bool isSkUploading, SubmitStatus submitStatus, bool isSubmitting, String? errorMessage
+ String name, bool isNameDirty, bool isNameReadOnly, String? ktpUrl, String? ktpLocalPath, bool isKtpUploading, String? skUrl, String? skLocalPath, bool isSkUploading, SubmitStatus submitStatus, bool isSubmitting, String? submittedCustomerId, String? errorMessage
 });
 
 
@@ -280,7 +282,7 @@ class __$SubmitFirstPhaseStateCopyWithImpl<$Res>
 
 /// Create a copy of SubmitFirstPhaseState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? isNameDirty = null,Object? isNameReadOnly = null,Object? ktpUrl = freezed,Object? ktpLocalPath = freezed,Object? isKtpUploading = null,Object? skUrl = freezed,Object? skLocalPath = freezed,Object? isSkUploading = null,Object? submitStatus = null,Object? isSubmitting = null,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? isNameDirty = null,Object? isNameReadOnly = null,Object? ktpUrl = freezed,Object? ktpLocalPath = freezed,Object? isKtpUploading = null,Object? skUrl = freezed,Object? skLocalPath = freezed,Object? isSkUploading = null,Object? submitStatus = null,Object? isSubmitting = null,Object? submittedCustomerId = freezed,Object? errorMessage = freezed,}) {
   return _then(_SubmitFirstPhaseState(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,isNameDirty: null == isNameDirty ? _self.isNameDirty : isNameDirty // ignore: cast_nullable_to_non_nullable
@@ -293,7 +295,8 @@ as String?,skLocalPath: freezed == skLocalPath ? _self.skLocalPath : skLocalPath
 as String?,isSkUploading: null == isSkUploading ? _self.isSkUploading : isSkUploading // ignore: cast_nullable_to_non_nullable
 as bool,submitStatus: null == submitStatus ? _self.submitStatus : submitStatus // ignore: cast_nullable_to_non_nullable
 as SubmitStatus,isSubmitting: null == isSubmitting ? _self.isSubmitting : isSubmitting // ignore: cast_nullable_to_non_nullable
-as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as bool,submittedCustomerId: freezed == submittedCustomerId ? _self.submittedCustomerId : submittedCustomerId // ignore: cast_nullable_to_non_nullable
+as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
