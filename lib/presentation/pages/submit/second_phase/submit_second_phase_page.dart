@@ -12,10 +12,12 @@ class SubmitSecondPhasePage extends ConsumerStatefulWidget {
     super.key,
     required this.customerId,
     required this.customerName,
+    this.fromCustomerList = false,
   });
 
   final String customerId;
   final String customerName;
+  final bool fromCustomerList;
 
   @override
   ConsumerState<SubmitSecondPhasePage> createState() =>
@@ -62,7 +64,10 @@ class _SubmitSecondPhasePageState
         final router = GoRouter.of(context);
         final customerId = widget.customerId;
         router.go('/home');
-        Future.microtask(() => router.push('/submit-third-phase', extra: customerId));
+        Future.microtask(() => router.push('/submit-third-phase', extra: {
+              'customerId': customerId,
+              'fromCustomerList': false,
+            }));
       } else if (next.errorMessage != null &&
           next.errorMessage != prev?.errorMessage) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -75,7 +80,7 @@ class _SubmitSecondPhasePageState
     });
 
     return PopScope(
-      canPop: false,
+      canPop: widget.fromCustomerList,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) context.go('/home');
       },

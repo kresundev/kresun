@@ -91,11 +91,15 @@ class _CustomersListPageState extends ConsumerState<CustomersListPage> {
                             extra: {
                               'customerId': customer.id,
                               'customerName': customer.name,
+                              'fromCustomerList': true,
                             },
                           ),
                       SubmitStatus.simulationUploaded => () => context.push(
                             '/submit-third-phase',
-                            extra: customer.id,
+                            extra: {
+                              'customerId': customer.id,
+                              'fromCustomerList': true,
+                            },
                           ),
                       _ => null,
                     };

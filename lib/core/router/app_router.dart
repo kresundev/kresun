@@ -50,14 +50,19 @@ final appRouter = GoRouter(
         return SubmitSecondPhasePage(
           customerId: extra['customerId'] as String,
           customerName: extra['customerName'] as String,
+          fromCustomerList: extra['fromCustomerList'] as bool? ?? false,
         );
       },
     ),
     GoRoute(
       path: '/submit-third-phase',
-      builder: (context, state) => SubmitThirdPhasePage(
-        customerId: state.extra as String,
-      ),
+      builder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return SubmitThirdPhasePage(
+          customerId: extra['customerId'] as String,
+          fromCustomerList: extra['fromCustomerList'] as bool? ?? false,
+        );
+      },
     ),
   ],
 );

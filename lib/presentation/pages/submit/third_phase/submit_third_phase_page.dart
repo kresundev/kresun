@@ -7,9 +7,14 @@ import 'submit_third_phase_state.dart';
 import 'submit_third_phase_view_model.dart';
 
 class SubmitThirdPhasePage extends ConsumerStatefulWidget {
-  const SubmitThirdPhasePage({super.key, required this.customerId});
+  const SubmitThirdPhasePage({
+    super.key,
+    required this.customerId,
+    this.fromCustomerList = false,
+  });
 
   final String customerId;
+  final bool fromCustomerList;
 
   @override
   ConsumerState<SubmitThirdPhasePage> createState() =>
@@ -66,7 +71,7 @@ class _SubmitThirdPhasePageState extends ConsumerState<SubmitThirdPhasePage> {
     });
 
     return PopScope(
-      canPop: false,
+      canPop: widget.fromCustomerList,
       onPopInvokedWithResult: (didPop, _) {
         if (!didPop) context.go('/home');
       },

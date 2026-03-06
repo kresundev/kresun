@@ -58,6 +58,7 @@ class _SubmitFirstPhasePageState extends ConsumerState<SubmitFirstPhasePage> {
           router.push('/submit-second-phase', extra: {
             'customerId': customerId,
             'customerName': customerName,
+            'fromCustomerList': false,
           });
         });
       } else if (next.errorMessage != null &&
