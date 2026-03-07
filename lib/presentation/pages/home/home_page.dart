@@ -336,7 +336,11 @@ class _SheetOption extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(Icons.chevron_right_rounded, color: AppColors.textDisabled, size: 20),
+            const Icon(
+              Icons.chevron_right_rounded,
+              color: AppColors.textDisabled,
+              size: 20,
+            ),
           ],
         ),
       ),
@@ -549,10 +553,7 @@ class _MenuItem extends StatelessWidget {
 // ─── Bottom Navigation ─────────────────────────────────────────────────────
 
 class _BottomNav extends StatelessWidget {
-  const _BottomNav({
-    required this.selectedIndex,
-    required this.onTap,
-  });
+  const _BottomNav({required this.selectedIndex, required this.onTap});
 
   final int selectedIndex;
   final ValueChanged<int> onTap;
@@ -650,8 +651,7 @@ class _NavItem extends StatelessWidget {
               label,
               style: TextStyle(
                 fontSize: 11,
-                fontWeight:
-                    isActive ? FontWeight.w600 : FontWeight.w400,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                 color: isActive ? AppColors.primary : AppColors.textSecondary,
               ),
             ),

@@ -1,4 +1,4 @@
-package com.kresun.kresun.kresun
+package com.kresun.kresun
 
 import io.flutter.embedding.android.FlutterActivity
 
